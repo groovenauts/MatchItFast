@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './Intro.css';
 import AppInfo from 'AppInfo'
 import Action from 'Action'
@@ -12,6 +12,15 @@ function Intro(props: Props) {
   const appInfo = props.appInfo;
   const dispatch = props.dispatch;
 
+  const [transition, setTransition] = useState(false);
+
+  useEffect(() => {
+    if (transition) {
+      setTimeout(() => { dispatch(new Action("start")) }, 800);
+      return () => { setTransition(false); };
+    }
+  }, [transition]);
+
   return (
     <div className="Intro">
       <div className="Intro-title">
@@ -20,9 +29,10 @@ function Intro(props: Props) {
       <div className="Intro-subtitle">
         Porwered by Vertex AI Matching Engine.
       </div>
-      <div className="Intro-start" onClick={() => dispatch(new Action("start", null))} >
+      <div className="Intro-start" onClick={() => setTransition(true)} >
         Start
       </div>
+      { transition ? <div className="Intro-transit" /> : null }
     </div>
   );
 }

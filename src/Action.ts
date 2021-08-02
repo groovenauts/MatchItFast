@@ -17,7 +17,7 @@
 
 export default class Action {
     constructor(public type: string,
-                public data: any){
+                public data: any = null){
         this.type = type;
         this.data = data;
     }

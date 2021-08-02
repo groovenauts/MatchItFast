@@ -15,10 +15,15 @@
  * =============================================================================
  */
 
+
 export default class AppInfo {
     constructor(public intro: boolean){
         this.intro = intro;
     }
 }
+
+export const initialAppInfo: AppInfo = new AppInfo(
+    true, // intro
+);
 
 // vim:ft=javascript sw=4

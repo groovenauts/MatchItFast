@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useRef, useReducer } from 'react';
+import React, { useReducer } from 'react';
 import './App.css';
-import Action from 'Action'
-import AppInfo from 'AppInfo'
-import appReducer, { initialAppInfo } from 'appReducer'
+import { initialAppInfo } from 'AppInfo'
+import appReducer from 'appReducer'
 import Intro from 'Intro'
 import Selection from 'Selection'
 
@@ -11,7 +10,7 @@ function App() {
 
   let mainPage;
   if (appInfo.intro) {
-    mainPage =  <Intro appInfo={appInfo} dispatch={dispatch} />;
+    mainPage = <Intro appInfo={appInfo} dispatch={dispatch} />;
   } else {
     mainPage = <Selection appInfo={appInfo} dispatch={dispatch} />;
   }

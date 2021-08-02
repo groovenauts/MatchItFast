@@ -28,14 +28,6 @@
   margin-top: 5vh;
   font-weight: bolder;
   animation: ripple 1.5s linear infinite;
-  transition-property: color, background-color;
-  transition-delay: 0.5s;
-  transition-duration: 0.2s;
-}
-
-.Intro-start:hover {
-  background-color: rgba(120, 180, 255);
-  color: white;
 }
 
 @keyframes ripple {
@@ -44,5 +36,23 @@
   }
   100% {
     box-shadow: 0 0 0 12px rgba(255,255,255, 0.0);
+  }
+}
+
+.Intro-transit {
+  position: absolute;
+  border-radius: 50%;
+  background-color: white;
+  animation: wipe 0.8s ease-out;
+}
+
+@keyframes wipe {
+  0% {
+    width: 0vmax;
+    height: 0vmax;
+  }
+  100% {
+    width: 120vmax;
+    height: 120vmax;
   }
 }
