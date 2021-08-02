@@ -1,22 +1,30 @@
-import React from 'react';
+import React, { useState, useEffect, useRef, useReducer } from 'react';
 import './App.css';
+import Action from 'Action'
+import AppInfo from 'AppInfo'
+import appReducer, { initialAppInfo } from 'appReducer'
+import Intro from 'Intro'
+import Selection from 'Selection'
 
 function App() {
+  const [ appInfo, dispatch ] = useReducer(appReducer, initialAppInfo);
+
+  let mainPage;
+  if (appInfo.intro) {
+    mainPage =  <Intro appInfo={appInfo} dispatch={dispatch} />;
+  } else {
+    mainPage = <Selection appInfo={appInfo} dispatch={dispatch} />;
+  }
+
   return (
     <div className="App">
       <header className="App-header">
-        <div className="App-title">
-          Match It Fast
-        </div>
-        <div className="App-subtitle">
-          Porwered by Vertex AI Matching Engine.
-        </div>
-        <div className="App-start">
-          Start
-        </div>
+        { mainPage }
       </header>
     </div>
   );
 }
 
 export default App;
+
+// vim:ft=typescriptreact sw=4

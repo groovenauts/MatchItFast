@@ -1,9 +1,4 @@
-.App {
-  text-align: center;
-  background-color: rgb(60, 133, 244);
-}
-
-.App-header {
+.Intro {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -14,20 +9,16 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-.App-title {
+.Intro-title {
   font-size: calc(10px + 10vmin);
   font-weight: bolder;
 }
 
-.App-subtitle {
+.Intro-subtitle {
   font-size: calc(10px + 3vmin);
 }
 
-.App-start {
+.Intro-start {
   width: 10vmin;
   height: 10vmin;
   border-radius: 50%;
@@ -36,14 +27,22 @@
   color: rgb(60, 133, 244);
   margin-top: 5vh;
   font-weight: bolder;
-  animation: ripple 1.5s ease-out infinite;
+  animation: ripple 1.5s linear infinite;
+  transition-property: color, background-color;
+  transition-delay: 0.5s;
+  transition-duration: 0.2s;
+}
+
+.Intro-start:hover {
+  background-color: rgba(120, 180, 255);
+  color: white;
 }
 
 @keyframes ripple {
   0% {
-    box-shadow: 0 0 0 0px rgba(255,255,255, 0.2);
+    box-shadow: 0 0 0 0px rgba(255,255,255, 0.5);
   }
   100% {
-    box-shadow: 0 0 0 12px rgba(255,255,255, 0.2);
+    box-shadow: 0 0 0 12px rgba(255,255,255, 0.0);
   }
 }
