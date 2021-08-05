@@ -20,6 +20,7 @@ class MatchingQueryClient:
         request.deployed_index_id = self._deployed_index_id
         for v in embedding:
             request.float_val.append(v)
+        request.num_neighbors = 30
 
         response = self._stub.Match(request)
         return response
