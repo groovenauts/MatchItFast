@@ -22,7 +22,7 @@ class MatchingQueryClient:
             request.float_val.append(v)
 
         response = self._stub.Match(request)
-        response
+        return response
 
     def query_image(self, jpeg_file):
         with tf.io.gfile.GFile(jpeg_file, "rb") as f:
@@ -33,5 +33,5 @@ class MatchingQueryClient:
         img.save(buf, "JPEG")
         input_tensor = tf.reshape(tf.io.decode_jpeg(buf.getvalue(), channels=3), (1, 224, 224, 3))
         embedding = self._model.predict({"inputs": input_tensor})[0].tolist()
-        self.query_embedding(embedding)
+        return self.query_embedding(embedding)
 
