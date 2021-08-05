@@ -1,1 +1,37 @@
 runtime: python39
+
+env_variables:
+  MATCHING_ENGINE_DEPLOYED_INDEX_ID: 
+  MATCHING_ENGINE_ENDPOINT_IP: 
+
+handlers:
+
+- url: /(.*\.png)$
+  static_files: build/\1
+  upload: build/.*\.png$
+
+- url: /(.*\.json)$
+  static_files: build/\1
+  upload: build/.*\.json$
+
+- url: /(.*\.html)$
+  static_files: build/\1
+  upload: build/.*\.html$
+
+- url: /robots.txt
+  static_files: build/robots.txt
+  upload: build/robots.txt
+
+- url: /static
+  static_dir: build/static
+
+- url: /images
+  static_dir: build/images
+
+- url: /embeddings
+  static_dir: build/embeddings
+
+- url: /.*
+  secure: always
+  redirect_http_response_code: 301
+  script: auto

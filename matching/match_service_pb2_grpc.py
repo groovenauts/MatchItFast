@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-import match_service_pb2 as match__service__pb2
+import matching.match_service_pb2 as match__service__pb2
 
 
 class MatchServiceStub(object):

@@ -25,3 +25,5 @@ yarn-error.log*
 .*.swp
 
 __pycache__/
+
+_*.yaml
