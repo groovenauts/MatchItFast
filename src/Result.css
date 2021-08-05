@@ -1,4 +1,4 @@
-.Selection {
+.Result {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -9,15 +9,19 @@
   color: white;
 }
 
-.Selection-title {
+.Result-title {
   font-size: calc(10px + 2vmin);
   font-weight: bolder;
 }
 
-.Selection-subtitle {
-  font-size: calc(10px + 3vmin);
+.Result-query-image {
 }
 
-.Selection-image {
+.reset-button {
+  width: 10vmin;
+  height: 10vmin;
+  line-height: 10vmin;
+  color: rgb(60, 133, 244);
+  background-color: white;
   border-radius: 50%;
 }

@@ -17,13 +17,16 @@
 
 
 export default class AppInfo {
-    constructor(public intro: boolean){
-        this.intro = intro;
+    intro: boolean;
+
+    selection: string | null;
+
+    constructor(){
+        this.intro = true;
+        this.selection = null;
     }
 }
 
-export const initialAppInfo: AppInfo = new AppInfo(
-    true, // intro
-);
+export const initialAppInfo: AppInfo = new AppInfo();
 
 // vim:ft=javascript sw=4

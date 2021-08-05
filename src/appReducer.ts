@@ -7,6 +7,8 @@ function appReducer(appInfo: any, action: Action) {
             return { ...appInfo, ...{ intro: false } };
         case "reset":
             return initialAppInfo;
+        case "select":
+            return { ...appInfo, ...{ selection: action.data } };
     }
 }
 

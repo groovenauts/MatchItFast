@@ -1,6 +1,6 @@
 import React from 'react';
-import AppInfo from 'AppInfo'
-import Action from 'Action'
+import AppInfo from 'AppInfo';
+import Action from 'Action';
 import './Selection.css';
 
 type Props = {
@@ -17,8 +17,8 @@ function Selection(props: Props) {
       <div className="Selection-title">
         Choose one of the images below.
       </div>
-      <div className="Intro-start" onClick={() => dispatch(new Action("reset", null))} >
-        Start
+      <div className="Selection-image" onClick={() => dispatch(new Action("select", "lotus"))} >
+        <img src="images/lotus.jpg" alt="Lotus flower photo" />
       </div>
     </div>
   );
