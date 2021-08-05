@@ -1,3 +1,4 @@
+import time
 import grpc
 import matching.match_service_pb2 as match_service_pb2
 import matching.match_service_pb2_grpc as match_service_pb2_grpc
@@ -22,8 +23,10 @@ class MatchingQueryClient:
             request.float_val.append(v)
         request.num_neighbors = 30
 
+        st = time.time()
         response = self._stub.Match(request)
-        return response
+        ed = time.time()
+        return (response, ed - st)
 
     def query_image(self, jpeg_file):
         with tf.io.gfile.GFile(jpeg_file, "rb") as f:
