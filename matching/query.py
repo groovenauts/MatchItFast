@@ -9,11 +9,12 @@ class MatchingQueryClient:
         channel = grpc.insecure_channel("{}:10000".format(self._ip_addr))
         self._stub = match_service_pb2_grpc.MatchServiceStub(channel)
         self._deployed_index_id = deployed_index_id
+        self._model = None
 
     def tfmodel(self):
         import tensorflow as tf
         import tensorflow_hub as hub
-        if self.model is None:
+        if self._model is None:
             self._model = tf.keras.Sequential([hub.KerasLayer("https://tfhub.dev/google/imagenet/mobilenet_v2_100_224/feature_vector/5", trainable=False)])
             self._model.build([None, 224, 224, 3])  # Batch input shape.
 
