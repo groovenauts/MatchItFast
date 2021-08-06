@@ -3,9 +3,9 @@
 import os
 import json
 
-from flask import Flask
+from flask import Flask, request, jsonify
 
-import matching.query as query
+import matching.query as matching_query
 
 app = Flask(__name__)
 
@@ -20,14 +20,18 @@ def query():
     index_id = os.environ.get("MATCHING_ENGINE_DEPLOYED_INDEX_ID", "")
     ip = os.environ.get("MATCHING_ENGINE_ENDPOINT_IP", "")
 
-    with open("build/embeddings/{}.json".format(request.form["query"]), "r") as f:
+    print(request);
+    j = request.get_json();
+    if "query" not in j:
+        return jsonify({ "neighbors": [], "latency": 0.0 })
+    with open("build/embeddings/{}.json".format(j["query"]), "r") as f:
         embedding = json.loads(f.read())
 
-    cli = query.MatchingQueryClient(ip, index_id)
+    cli = matching_query.MatchingQueryClient(ip, index_id)
 
     result, latency = cli.query_embedding(embedding)
 
-    return html
+    return jsonify({ "neighbors": [ i.id for i in result.neighbor ], "latency": latency })
 
 if __name__ == '__main__':
     # This is used when running locally only. When deploying to Google App
