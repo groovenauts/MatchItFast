@@ -42,6 +42,6 @@ class MatchingQueryClient:
         buf = BytesIO()
         img.save(buf, "JPEG")
         input_tensor = tf.reshape(tf.io.decode_jpeg(buf.getvalue(), channels=3), (1, 224, 224, 3))
-        embedding = self.tfmodel.predict({"inputs": input_tensor})[0].tolist()
+        embedding = self.tfmodel().predict({"inputs": input_tensor})[0].tolist()
         return self.query_embedding(embedding)
 
