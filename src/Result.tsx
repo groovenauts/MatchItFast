@@ -17,18 +17,25 @@ function Selection(props: Props) {
 
   useEffect(() => {
     if (neighbors == null) {
-      window.fetch("/api/query", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ "query": appInfo.selection }) })
-      .then((res) => {
-        if (res.status != 200) {
-          console.log("/api/query return HTTP status: " + res.status);
-        } else {
-          res.json().then((result) => {
-            console.log("result = " + result);
-            setLatency(result["latency"]);
-            setNeighbors(result["neighbors"]);
-          });
-        }
-      });
+      if (process.env.NODE_ENV == "production") {
+        window.fetch("/api/query", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ "query": appInfo.selection }) })
+        .then((res) => {
+          if (res.status != 200) {
+            console.log("/api/query return HTTP status: " + res.status);
+          } else {
+            res.json().then((result) => {
+              console.log("result = " + result);
+              setLatency(result["latency"]);
+              setNeighbors(result["neighbors"]);
+            });
+          }
+        });
+      } else {
+        setTimeout(() => {
+          setLatency(0.02);
+          setNeighbors(["0e979c911aa99339a9c125fe", "645fbea89b680842c6c11201", "31bd8b938d5a05b453d3cc2f", "14addffe96e27ece0da0f784"]);
+        }, 2000);
+      }
     }
   }, [neighbors])
 
@@ -49,9 +56,8 @@ function Selection(props: Props) {
 
   return (
     <div className="Result">
-      <div className="Result-subtitle">
-        30 Matched images.
-        (matched in 10 msec)
+      <div className="Result-title">
+        { neighbors ? "30 Matched images.  (matched in 10 msec)" : "Matching..." }
       </div>
       <div>
         <img className="Result-query-image" src={"images/" + appInfo.selection + ".jpg"} alt={"query image: '" + appInfo.selection + "'"} />

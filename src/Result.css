@@ -12,9 +12,12 @@
 .Result-title {
   font-size: calc(10px + 2vmin);
   font-weight: bolder;
+  margin-bottom: 5vmin;
 }
 
 .Result-query-image {
+  width: 30vmin;
+  height: 30vmin;
   border-radius: 50%;
   border: solid;
   border-color: rgb(145, 180, 245);
@@ -22,12 +25,12 @@
 }
 
 .Result-neighbor-image {
-  width: 10vmin;
-  height: 10vmin;
+  width: 15vmin;
+  height: 15vmin;
   border-radius: 50%;
   border: solid;
   border-color: rgb(145, 180, 245);
-  border-width: 0.5vmin;
+  border-width: 1px;
 }
 
 .reset-button {

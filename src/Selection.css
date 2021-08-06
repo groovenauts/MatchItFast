@@ -19,6 +19,8 @@
 }
 
 .Selection-image {
+  width: 30vmin;
+  height: 30vmin;
   border-radius: 50%;
   border: solid;
   border-color: rgb(145, 180, 245);
