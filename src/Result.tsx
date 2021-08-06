@@ -53,8 +53,8 @@ function Selection(props: Props) {
         30 Matched images.
         (matched in 10 msec)
       </div>
-      <div className="Result-query-image">
-        <img src={"images/" + appInfo.selection + ".jpg"} alt={"query image: '" + appInfo.selection + "'"} />
+      <div>
+        <img className="Result-query-image" src={"images/" + appInfo.selection + ".jpg"} alt={"query image: '" + appInfo.selection + "'"} />
       </div>
       <div className="Result-neighbors">
         {neighbor_images}

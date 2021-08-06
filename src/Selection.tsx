@@ -17,8 +17,8 @@ function Selection(props: Props) {
       <div className="Selection-title">
         Choose one of the images below.
       </div>
-      <div className="Selection-image" onClick={() => dispatch(new Action("select", "lotus"))} >
-        <img src="images/lotus.jpg" alt="Lotus flower photo" />
+      <div>
+        <img  className="Selection-image"src="images/lotus.jpg" alt="Lotus flower photo" onClick={() => dispatch(new Action("select", "lotus"))} />
       </div>
     </div>
   );
