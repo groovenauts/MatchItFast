@@ -33,11 +33,38 @@ function Selection(props: Props) {
       } else {
         setTimeout(() => {
           setLatency(0.02);
-          setNeighbors(["0e979c911aa99339a9c125fe", "645fbea89b680842c6c11201", "31bd8b938d5a05b453d3cc2f", "14addffe96e27ece0da0f784"]);
-        }, 2000);
+          setNeighbors([
+          "0e979c911aa99339a9c125fe", "645fbea89b680842c6c11201", "31bd8b938d5a05b453d3cc2f", "14addffe96e27ece0da0f784",
+          "0e979c911aa99339a9c125fe", "645fbea89b680842c6c11201", "31bd8b938d5a05b453d3cc2f", "14addffe96e27ece0da0f784",
+          "0e979c911aa99339a9c125fe", "645fbea89b680842c6c11201", "31bd8b938d5a05b453d3cc2f", "14addffe96e27ece0da0f784",
+          "0e979c911aa99339a9c125fe", "645fbea89b680842c6c11201", "31bd8b938d5a05b453d3cc2f", "14addffe96e27ece0da0f784",
+          "0e979c911aa99339a9c125fe", "645fbea89b680842c6c11201", "31bd8b938d5a05b453d3cc2f", "14addffe96e27ece0da0f784",
+          ]);
+        }, 200);
       }
     }
   }, [neighbors])
+
+  function getRandInt(min: number, max: number) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min) + min);
+  }
+
+  function generate_floating_animation() {
+    while (true) {
+      const top = getRandInt(20, 80);
+      const left = getRandInt(1, 80);
+      const delay = getRandInt(0, 14);
+      if (!((30<=top&&top<60)&&(20<=left&&left<60))) {
+        return {
+          top: top + "%",
+          left: left + "%",
+          animationDelay: delay + "s",
+        };
+      }
+    }
+  }
 
   const neighbor_images = [];
   const latency_tag = [];
@@ -46,7 +73,7 @@ function Selection(props: Props) {
       const n = neighbors[i];
       const path = n.slice(0,1) + "/" + n.slice(0,2) + "/" + n.slice(0,3) + "/" + n + ".jpg"
       neighbor_images.push(
-        <img className="Result-neighbor-image" src={"https://storage.googleapis.com/match-it-fast-assets/images/" + path} />
+        <img className="Result-neighbor-image" src={"https://storage.googleapis.com/match-it-fast-assets/images/" + path} style={ generate_floating_animation() } />
       );
     }
     latency_tag.push(

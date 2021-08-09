@@ -28,6 +28,7 @@
   margin-top: 5vh;
   font-weight: bolder;
   animation: ripple 1.5s linear infinite;
+  cursor : pointer;
 }
 
 @keyframes ripple {
