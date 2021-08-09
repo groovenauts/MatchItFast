@@ -29,7 +29,7 @@ def query():
 
     cli = matching_query.MatchingQueryClient(ip, index_id)
 
-    result, latency = cli.query_embedding(embedding)
+    result, latency = cli.query_embedding(embedding, num_neighbors=25)
 
     return jsonify({ "neighbors": [ i.id for i in result.neighbor ], "latency": latency })
 

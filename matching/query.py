@@ -10,12 +10,12 @@ class MatchingQueryClient:
         self._stub = match_service_pb2_grpc.MatchServiceStub(channel)
         self._deployed_index_id = deployed_index_id
 
-    def query_embedding(self, embedding):
+    def query_embedding(self, embedding, num_neighbors=30):
         request = match_service_pb2.MatchRequest()
         request.deployed_index_id = self._deployed_index_id
         for v in embedding:
             request.float_val.append(v)
-        request.num_neighbors = 30
+        request.num_neighbors = num_neighbors
 
         st = time.time()
         response = self._stub.Match(request)
