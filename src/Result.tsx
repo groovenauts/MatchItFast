@@ -55,12 +55,14 @@ function Selection(props: Props) {
     while (true) {
       const top = getRandInt(20, 80);
       const left = getRandInt(1, 80);
-      const delay = getRandInt(0, 14);
+      const delay = getRandInt(-15, 0);
+      const direction = (Math.random() < 0.5) ? "normal" : "reverse";
       if (!((30<=top&&top<60)&&(20<=left&&left<60))) {
         return {
           top: top + "%",
           left: left + "%",
           animationDelay: delay + "s",
+          animationDirection: direction,
         };
       }
     }
