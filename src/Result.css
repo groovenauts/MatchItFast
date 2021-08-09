@@ -7,6 +7,7 @@
   font-family: 'Roboto', sans-serif;
   font-size: calc(10px + 2vmin);
   color: white;
+  z-index: 0;
 }
 
 .Result-title {

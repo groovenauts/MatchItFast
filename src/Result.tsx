@@ -8,7 +8,7 @@ type Props = {
   dispatch: any,
 };
 
-function Selection(props: Props) {
+function Result(props: Props) {
   const appInfo = props.appInfo;
   const dispatch = props.dispatch;
 
@@ -51,9 +51,9 @@ function Selection(props: Props) {
     return Math.floor(Math.random() * (max - min) + min);
   }
 
-  function generate_floating_animation() {
+  function generate_floating_animation(i: number) {
     while (true) {
-      const top = getRandInt(20, 80);
+      const top = getRandInt(15, 80);
       const left = getRandInt(1, 80);
       const delay = getRandInt(-15, 0);
       const direction = (Math.random() < 0.5) ? "normal" : "reverse";
@@ -63,6 +63,7 @@ function Selection(props: Props) {
           left: left + "%",
           animationDelay: delay + "s",
           animationDirection: direction,
+          zIndex: -i,
         };
       }
     }
@@ -75,31 +76,31 @@ function Selection(props: Props) {
       const n = neighbors[i];
       const path = n.slice(0,1) + "/" + n.slice(0,2) + "/" + n.slice(0,3) + "/" + n + ".jpg"
       neighbor_images.push(
-        <img className="Result-neighbor-image" src={"https://storage.googleapis.com/match-it-fast-assets/images/" + path} alt={"neighbor id=" + n} style={ generate_floating_animation() } />
+        <img key={i} className="Result-neighbor-image" src={"https://storage.googleapis.com/match-it-fast-assets/images/" + path} alt={"neighbor id=" + n} style={ generate_floating_animation(Number(i)+1) } />
       );
     }
     latency_tag.push(
-      <div className="Result-query-latency">Matching Engine Query Latency = {(latency*1000).toFixed(2)} msec</div>
+      <div key="latency" className="Result-query-latency">Matching Engine Query Latency = {(latency*1000).toFixed(2)} msec</div>
     );
   }
 
   return (
     <div className="Result">
-      <div className="Result-title">
+      <div key="title" className="Result-title">
         { neighbors ? "30 Matched images.  (matched in 10 msec)" : "Matching..." }
       </div>
-      <div>
+      <div key="query">
         <img className="Result-query-image" src={"images/" + appInfo.selection + ".jpg"} alt={"query image: '" + appInfo.selection + "'"} />
       </div>
-      <div className="Result-neighbors">
+      <div key="neighbors" className="Result-neighbors">
         {neighbor_images}
       </div>
       { latency_tag }
-      <div className="reset-button" onClick={() => dispatch(new Action("reset", null))} >
+      <div key="reset" className="reset-button" onClick={() => dispatch(new Action("reset", null))} >
         Reset
       </div>
     </div>
   );
 }
 
-export default Selection;
+export default Result;
