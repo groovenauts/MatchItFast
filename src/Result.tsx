@@ -87,7 +87,7 @@ function Result(props: Props) {
   return (
     <div className="Result">
       <div key="title" className="Result-title">
-        { neighbors ? "Top-25 matched images." : "Matching..." }
+        { neighbors ? "Top-25 matches from 2 million images." : "Searching from 2 million images..." }
       </div>
       <div key="query">
         <img className="Result-query-image" src={"images/" + appInfo.selection + ".jpg"} alt={"query image: '" + appInfo.selection + "'"} />
