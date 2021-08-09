@@ -17,10 +17,10 @@ function Selection(props: Props) {
 
   useEffect(() => {
     if (neighbors == null) {
-      if (process.env.NODE_ENV == "production") {
+      if (process.env.NODE_ENV === "production") {
         window.fetch("/api/query", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ "query": appInfo.selection }) })
         .then((res) => {
-          if (res.status != 200) {
+          if (res.status !== 200) {
             console.log("/api/query return HTTP status: " + res.status);
           } else {
             res.json().then((result) => {
@@ -43,7 +43,7 @@ function Selection(props: Props) {
         }, 200);
       }
     }
-  }, [neighbors])
+  }, [neighbors, appInfo.selection])
 
   function getRandInt(min: number, max: number) {
     min = Math.ceil(min);
@@ -75,7 +75,7 @@ function Selection(props: Props) {
       const n = neighbors[i];
       const path = n.slice(0,1) + "/" + n.slice(0,2) + "/" + n.slice(0,3) + "/" + n + ".jpg"
       neighbor_images.push(
-        <img className="Result-neighbor-image" src={"https://storage.googleapis.com/match-it-fast-assets/images/" + path} style={ generate_floating_animation() } />
+        <img className="Result-neighbor-image" src={"https://storage.googleapis.com/match-it-fast-assets/images/" + path} alt={"neighbor id=" + n} style={ generate_floating_animation() } />
       );
     }
     latency_tag.push(

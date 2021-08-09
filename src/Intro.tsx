@@ -9,7 +9,6 @@ type Props = {
 }
 
 function Intro(props: Props) {
-  const appInfo = props.appInfo;
   const dispatch = props.dispatch;
 
   const [transition, setTransition] = useState(false);
@@ -19,7 +18,7 @@ function Intro(props: Props) {
       setTimeout(() => { dispatch(new Action("start")) }, 800);
       return () => { setTransition(false); };
     }
-  }, [transition]);
+  }, [transition, dispatch]);
 
   return (
     <div className="Intro">

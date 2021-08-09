@@ -1,5 +1,5 @@
 import Action from 'Action'
-import AppInfo, { initialAppInfo } from 'AppInfo'
+import { initialAppInfo } from 'AppInfo'
 
 function appReducer(appInfo: any, action: Action) {
     switch(action.type) {

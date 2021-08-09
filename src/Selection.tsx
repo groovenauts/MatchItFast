@@ -9,7 +9,6 @@ type Props = {
 };
 
 function Selection(props: Props) {
-  const appInfo = props.appInfo;
   const dispatch = props.dispatch;
 
   return (
@@ -18,9 +17,9 @@ function Selection(props: Props) {
         Choose one of the images below.
       </div>
       <div className="Selection-images">
-        <img  className="Selection-image"src="images/lotus.jpg" alt="Lotus flower photo" onClick={() => dispatch(new Action("select", "lotus"))} />
-        <img  className="Selection-image"src="images/jellyfish.jpg" alt="Jellyfish photo" onClick={() => dispatch(new Action("select", "jellyfish"))} />
-        <img  className="Selection-image"src="images/srilankan_curry.jpg" alt="Srilankan curry photo" onClick={() => dispatch(new Action("select", "srilankan_curry"))} />
+        <img  className="Selection-image"src="images/lotus.jpg" alt="Lotus flower" onClick={() => dispatch(new Action("select", "lotus"))} />
+        <img  className="Selection-image"src="images/jellyfish.jpg" alt="Jellyfish" onClick={() => dispatch(new Action("select", "jellyfish"))} />
+        <img  className="Selection-image"src="images/srilankan_curry.jpg" alt="Srilankan curry" onClick={() => dispatch(new Action("select", "srilankan_curry"))} />
       </div>
     </div>
   );
