@@ -8,8 +8,39 @@ type Props = {
   dispatch: any,
 };
 
+const query_candidates = [
+  "lotus",
+  "jellyfish",
+  "srilankan_curry",
+  "balloon",
+  "car",
+  "firework",
+  "horse",
+];
+
+function select_queries(num: number) {
+  let candidates = [...query_candidates];
+  if (num >= query_candidates.length) {
+    return candidates;
+  }
+  const queries: string[] = [];
+  for(let i = 0; i < num; i++) {
+    const idx = Math.floor(Math.random() * candidates.length);
+    queries.push(candidates[idx]);
+    candidates = candidates.slice(0, idx).concat(candidates.slice(idx+1, candidates.length));
+  }
+  return queries;
+}
+
 function Selection(props: Props) {
   const dispatch = props.dispatch;
+
+  const query_images = select_queries(3);
+  const query_image_tags = [];
+  for(let i = 0; i < 3; i++) {
+    const key = query_images[i];
+    query_image_tags.push(<img key={key} className="Selection-image" src={"images/"+key+".jpg"} alt={key} onClick={() => dispatch(new Action("select", key))} />);
+  }
 
   return (
     <div className="Selection">
@@ -17,9 +48,7 @@ function Selection(props: Props) {
         Choose one of the images below.
       </div>
       <div className="Selection-images">
-        <img key="lotus" className="Selection-image"src="images/lotus.jpg" alt="Lotus flower" onClick={() => dispatch(new Action("select", "lotus"))} />
-        <img key="jellyfish" className="Selection-image"src="images/jellyfish.jpg" alt="Jellyfish" onClick={() => dispatch(new Action("select", "jellyfish"))} />
-        <img key="srilankan_curry" className="Selection-image"src="images/srilankan_curry.jpg" alt="Srilankan curry" onClick={() => dispatch(new Action("select", "srilankan_curry"))} />
+        { query_image_tags }
       </div>
     </div>
   );

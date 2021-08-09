@@ -1,3 +1,4 @@
+import json
 import tensorflow as tf
 import tensorflow_hub as hub
 from PIL import Image
@@ -23,4 +24,9 @@ class Vectorizer:
         input_tensor = tf.image.convert_image_dtype(input_tensor, tf.float32)
         embedding = self._model.predict({"inputs": input_tensor})[0].tolist()
         return embedding
+
+    def jpeg_to_embedding(self, jpeg_file, embedding_file):
+        embedding = self.vectorize(jpeg_file)
+        with open(embedding_file, "w") as f:
+            f.write(json.dumps(embedding))
 
