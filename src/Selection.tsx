@@ -1,6 +1,6 @@
 import React from 'react';
 import AppInfo from 'AppInfo';
-import Action from 'Action';
+import * as actions from 'Action'
 import './Selection.css';
 
 type Props = {
@@ -39,7 +39,7 @@ function Selection(props: Props) {
   const query_image_tags = [];
   for(let i = 0; i < 3; i++) {
     const key = query_images[i];
-    query_image_tags.push(<img key={key} className="Selection-image" src={"images/"+key+".jpg"} alt={key} onClick={() => dispatch(new Action("select", key))} />);
+    query_image_tags.push(<img key={key} className="Selection-image" src={"images/"+key+".jpg"} alt={key} onClick={() => dispatch(actions.selectQuery(key))} />);
   }
 
   return (

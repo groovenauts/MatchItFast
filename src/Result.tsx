@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import AppInfo from 'AppInfo';
-import Action from 'Action';
+import * as actions from 'Action'
 import 'Result.css';
 
 type Props = {
@@ -96,7 +96,7 @@ function Result(props: Props) {
         {neighbor_images}
       </div>
       { latency_tag }
-      <div key="reset" className="reset-button" onClick={() => dispatch(new Action("reset", null))} >
+      <div key="reset" className="reset-button" onClick={() => dispatch(actions.reset())} >
         Reset
       </div>
     </div>

@@ -23,4 +23,9 @@ export default class Action {
     }
 }
 
+export const start = () => new Action("start", null);
+export const reset = () => new Action("reest", null);
+export const selectQuery = (query: string) => new Action("select", query);
+
+
 // vim:ft=javascript sw=4

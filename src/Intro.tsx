@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Intro.css';
 import AppInfo from 'AppInfo'
-import Action from 'Action'
+import * as actions from 'Action'
 
 type Props = {
   appInfo: AppInfo,
@@ -15,7 +15,7 @@ function Intro(props: Props) {
 
   useEffect(() => {
     if (transition) {
-      setTimeout(() => { dispatch(new Action("start")) }, 800);
+      setTimeout(() => { dispatch(actions.start()) }, 800);
       return () => { setTransition(false); };
     }
   }, [transition, dispatch]);
