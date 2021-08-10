@@ -24,7 +24,7 @@ export default class Action {
 }
 
 export const start = () => new Action("start", null);
-export const reset = () => new Action("reest", null);
+export const reset = () => new Action("reset", null);
 export const selectQuery = (query: string) => new Action("select", query);
 
 
