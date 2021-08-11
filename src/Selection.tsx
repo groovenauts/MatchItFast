@@ -58,7 +58,7 @@ function Selection(props: Props) {
       }
     }, 1000);
     }
-  }, [uploadImage]);
+  }, [uploadImage, dispatch]);
 
   const query_images = select_queries(3);
   const query_image_tags = [];
