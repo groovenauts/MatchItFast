@@ -54,19 +54,17 @@
 }
 
 @keyframes floating {
-  0% {
-  }
-  25% {
-    transform: translateX(5vmin) translateY(5vmin);
-  }
-  50% {
-    transform: translateY(10vmin);
-  }
-  75% {
-    transform: translateX(-5vmin) translateY(5vmin);
-  }
-  100% {
-  }
+  0%{ transform: translateX(5.0vmin) translateY(0.0vmin); }
+  10%{ transform: translateX(4.045vmin) translateY(2.939vmin); }
+  20%{ transform: translateX(1.545vmin) translateY(4.755vmin); }
+  30%{ transform: translateX(-1.545vmin) translateY(4.755vmin); }
+  40%{ transform: translateX(-4.045vmin) translateY(2.939vmin); }
+  50%{ transform: translateX(-5.0vmin) translateY(0.0vmin); }
+  60%{ transform: translateX(-4.045vmin) translateY(-2.939vmin); }
+  70%{ transform: translateX(-1.545vmin) translateY(-4.755vmin); }
+  80%{ transform: translateX(1.545vmin) translateY(-4.755vmin); }
+  90%{ transform: translateX(4.045vmin) translateY(-2.939vmin); }
+  100%{ transform: translateX(5.0vmin) translateY(0.0vmin); }
 }
 
 .reset-button {
