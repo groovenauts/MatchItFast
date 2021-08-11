@@ -1,18 +1,28 @@
-import React, { useReducer } from 'react';
+import React, { useState, useEffect, useReducer } from 'react';
 import './App.css';
 import { initialAppInfo } from 'AppInfo';
 import appReducer from 'appReducer';
 import Intro from 'Intro';
 import Selection from 'Selection';
 import Result from 'Result';
+import { loadModel } from 'mobileNetV2';
 
 function App() {
   const [ appInfo, dispatch ] = useReducer(appReducer, initialAppInfo);
+  const [ mobileNet, setMobileNet ] = useState<any>(null);
+
+  useEffect(() => {
+    if (mobileNet === null) {
+      loadModel().then((model) => setMobileNet(model));
+    }
+  }, [mobileNet]);
 
   let mainPage;
-  if (appInfo.intro) {
+  if (mobileNet === null) {
+    mainPage = <div>Loading...</div>
+  } else if (appInfo.intro) {
     mainPage = <Intro appInfo={appInfo} dispatch={dispatch} />;
-  } else if (appInfo.selection == null) {
+  } else if (appInfo.selection === null && appInfo.embedding === null) {
     mainPage = <Selection appInfo={appInfo} dispatch={dispatch} />;
   } else {
     mainPage = <Result appInfo={appInfo} dispatch={dispatch} />;

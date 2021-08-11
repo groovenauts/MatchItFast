@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import AppInfo from 'AppInfo';
 import * as actions from 'Action';
 import './Selection.css';
+import { inference } from 'mobileNetV2'
 
 type Props = {
   appInfo: AppInfo,
@@ -35,21 +36,58 @@ function select_queries(num: number) {
 function Selection(props: Props) {
   const dispatch = props.dispatch;
 
+  const [ uploadImage, setUploadImage ] = useState<null | string>(null);
+
+  const uploadedImageRef = useRef<HTMLImageElement>(null);
+
+  function processImage(ev: any) {
+    const imageFile = ev.target.files[0];
+    const imageUrl = URL.createObjectURL(imageFile);
+
+    setUploadImage(imageUrl);
+  }
+
+  useEffect(() => {
+    if (uploadImage) {
+    setTimeout(() => {
+      const tag = uploadedImageRef.current;
+      if (tag) {
+        inference(tag)!.then((embedding: any) => {
+          dispatch(actions.selectQueryWithImage(uploadImage!, embedding));
+        });
+      }
+    }, 1000);
+    }
+  }, [uploadImage]);
+
   const query_images = select_queries(3);
   const query_image_tags = [];
-  for(let i = 0; i < 3; i++) {
-    const key = query_images[i];
-    query_image_tags.push(<img key={key} className="Selection-image" src={"images/"+key+".jpg"} alt={key} onClick={() => dispatch(actions.selectQuery(key))} />);
+  if (uploadImage === null) {
+    for(let i = 0; i < 3; i++) {
+      const key = query_images[i];
+      query_image_tags.push(<img key={key} className="Selection-image" src={"images/"+key+".jpg"} alt={key} onClick={() => dispatch(actions.selectQuery(key))} />);
+    }
+  }
+
+  const image_preview = [];
+  if (uploadImage) {
+    image_preview.push(<img key="ImagePreview" src={uploadImage} alt="preview" style={{ width: "224px", height: "224px", borderRadius: "50%" }} ref={uploadedImageRef} />);
+  }
+
+  const uploader = [];
+  if (uploadImage === null) {
+    uploader.push(<div key="upload-label" className="Selection-title"> or upload image </div>);
+    uploader.push(<div key="uploader" className="Selection-uploader"><input type="file" accept="image/*" onChange={processImage} /></div>)
   }
 
   return (
     <div className="Selection">
-      <div className="Selection-title">
-        Choose one of the images below.
-      </div>
+      { uploadImage ? [] : [ <div className="Selection-title">Choose one of the images below.</div> ]}
       <div className="Selection-images">
         { query_image_tags }
       </div>
+      { image_preview }
+      { uploader }
     </div>
   );
 }

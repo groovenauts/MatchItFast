@@ -51,12 +51,11 @@ function Result(props: Props) {
 
     if (neighbors == null) {
       if (process.env.NODE_ENV === "production") {
-        window.fetch("/api/query", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ "query": appInfo.selection }) })
-        .then((res) => {
+        const setNeighborsCb = (res: any) => {
           if (res.status !== 200) {
             console.log("/api/query return HTTP status: " + res.status);
           } else {
-            res.json().then((result) => {
+            res.json().then((result: any) => {
               console.log("result = " + result);
               setLatency(result["latency"]);
               const ns = [];
@@ -66,7 +65,14 @@ function Result(props: Props) {
               setNeighbors(ns);
             });
           }
-        });
+        };
+        if (appInfo.selection) {
+          window.fetch("/api/query", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ "query": appInfo.selection }) })
+          .then(setNeighborsCb);
+        } else {
+          window.fetch("/api/query_embedding", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ "embedding": appInfo.embedding }) })
+          .then(setNeighborsCb);
+        }
       } else {
         setTimeout(() => {
           setLatency(0.02);
@@ -85,7 +91,7 @@ function Result(props: Props) {
         }, 200);
       }
     }
-  }, [neighbors, appInfo.selection])
+  }, [neighbors, appInfo.selection, appInfo.embedding])
 
   const neighbor_images = [];
   const latency_tag = [];
@@ -109,7 +115,7 @@ function Result(props: Props) {
     );
   }
 
-  const highlight = selectedNeighbor ? [ <Highlight rank={selectedNeighbor.rank} distance={selectedNeighbor.distance} close={() => setSelectedNeighbor(null)} /> ] : [];
+  const highlight = selectedNeighbor ? [ <Highlight key="highlight" rank={selectedNeighbor.rank} distance={selectedNeighbor.distance} close={() => setSelectedNeighbor(null)} /> ] : [];
 
   return (
     <div className="Result">
@@ -117,7 +123,12 @@ function Result(props: Props) {
         { neighbors ? "Top-25 matches from 2 million images." : "Searching from 2 million images..." }
       </div>
       <div key="query">
-        <img className="Result-query-image" src={"images/" + appInfo.selection + ".jpg"} alt={"query image: '" + appInfo.selection + "'"} />
+        { appInfo.imageUrl ?
+          <img className="Result-query-image" src={appInfo.imageUrl} alt="uploaded query" />
+          :
+          <img className="Result-query-image" src={"images/" + appInfo.selection + ".jpg"} alt={"query image: '" + appInfo.selection + "'"} />
+        }
+
       </div>
       <div key="neighbors" className="Result-neighbors">
         {neighbor_images}

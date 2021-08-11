@@ -21,9 +21,14 @@ export default class AppInfo {
 
     selection: string | null;
 
+    imageUrl: string | null;
+    embedding: number[] | null;
+
     constructor(){
         this.intro = true;
         this.selection = null;
+        this.imageUrl = null;
+        this.embedding = null;
     }
 }
 

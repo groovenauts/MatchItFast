@@ -10,12 +10,9 @@
 }
 
 .Selection-title {
-  font-size: calc(10px + 2vmin);
-  font-weight: bolder;
-}
-
-.Selection-subtitle {
   font-size: calc(10px + 3vmin);
+  font-weight: bolder;
+  margin-bottom: 5vmin;
 }
 
 .Selection-images {

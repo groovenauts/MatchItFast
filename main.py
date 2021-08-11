@@ -33,6 +33,25 @@ def query():
 
     return jsonify({ "neighbors": [ { "id": i.id, "distance": i.distance } for i in result.neighbor ], "latency": latency })
 
+@app.route('/api/query_embedding', methods=["POST"])
+def query_embedding():
+    index_id = os.environ.get("MATCHING_ENGINE_DEPLOYED_INDEX_ID", "")
+    ip = os.environ.get("MATCHING_ENGINE_ENDPOINT_IP", "")
+
+    print(request);
+    j = request.get_json();
+    if "embedding" not in j:
+        return jsonify({ "neighbors": [], "latency": 0.0 })
+    if type(j["embedding"]) != list or len(j["embedding"]) != 1280:
+        return jsonify({ "neighbors": [], "latency": 0.0 })
+    embedding = j["embedding"]
+
+    cli = matching_query.MatchingQueryClient(ip, index_id)
+
+    result, latency = cli.query_embedding(embedding, num_neighbors=25)
+
+    return jsonify({ "neighbors": [ { "id": i.id, "distance": i.distance } for i in result.neighbor ], "latency": latency })
+
 if __name__ == '__main__':
     # This is used when running locally only. When deploying to Google App
     # Engine, a webserver process such as Gunicorn will serve the app. This
