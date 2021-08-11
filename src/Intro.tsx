@@ -32,8 +32,8 @@ function Intro(props: Props) {
         Start
       </div>
       <div className="Intro-repo">
-        <a href="https://github.com/groovenauts/MatchItFast/" target="_blank" >
-          <img src="icons/github_64.png" style={{ width: "calc(32px + 2vmin)", height: "calc(32px + 2vmin)" }} />
+        <a href="https://github.com/groovenauts/MatchItFast/" target="_blank" rel="noreferrer" >
+          <img src="icons/github_64.png" style={{ width: "calc(32px + 2vmin)", height: "calc(32px + 2vmin)" }} alt="GitHub repo" />
         </a>
       </div>
       { transition ? <div className="Intro-transit" /> : null }
