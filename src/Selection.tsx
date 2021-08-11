@@ -76,7 +76,7 @@ function Selection(props: Props) {
 
   const uploader = [];
   if (uploadImage === null) {
-    uploader.push(<div key="upload-label" className="Selection-title"> or upload image </div>);
+    uploader.push(<div key="upload-label" className="Selection-title"> or upload an image</div>);
     uploader.push(<div key="uploader" className="Selection-uploader"><input type="file" accept="image/*" onChange={processImage} /></div>)
   }
 
