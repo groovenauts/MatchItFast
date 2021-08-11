@@ -61,7 +61,7 @@ function Result(props: Props) {
               setLatency(result["latency"]);
               const ns = [];
               for (let i = 0; i < result["neighbors"].length; i++) {
-                ns.push({ rank: i+1, style: generate_floating_animation(i), ...result["neighbors"]});
+                ns.push({ rank: i+1, style: generate_floating_animation(i), ...result["neighbors"][i]});
               }
               setNeighbors(ns);
             });
