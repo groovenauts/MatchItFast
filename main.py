@@ -31,7 +31,7 @@ def query():
 
     result, latency = cli.query_embedding(embedding, num_neighbors=25)
 
-    return jsonify({ "neighbors": [ i.id for i in result.neighbor ], "latency": latency })
+    return jsonify({ "neighbors": [ { "id": i.id, "distance": i.distance } for i in result.neighbor ], "latency": latency })
 
 if __name__ == '__main__':
     # This is used when running locally only. When deploying to Google App

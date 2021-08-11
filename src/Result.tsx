@@ -14,13 +14,15 @@ function Result(props: Props) {
   const dispatch = props.dispatch;
 
   type Neighbor = {
+    rank: number,
     id: string,
+    distance: number,
     style: any,
   }
 
   const [ neighbors, setNeighbors ] = useState<null | Neighbor[]>(null);
   const [ latency, setLatency ] = useState(0.0);
-  const [ selectedNeighbor, setSelectedNeighbor ] = useState<null | string>(null);
+  const [ selectedNeighbor, setSelectedNeighbor ] = useState<null | Neighbor>(null);
 
   function getRandInt(min: number, max: number) {
     min = Math.ceil(min);
@@ -28,25 +30,25 @@ function Result(props: Props) {
     return Math.floor(Math.random() * (max - min) + min);
   }
 
-  function generate_floating_animation(i: number) {
-    while (true) {
-      const top = getRandInt(15, 80);
-      const left = getRandInt(1, 80);
-      const delay = getRandInt(-15, 0);
-      const direction = (Math.random() < 0.5) ? "normal" : "reverse";
-      if (!((30<=top&&top<60)&&(20<=left&&left<60))) {
-        return {
-          top: top + "%",
-          left: left + "%",
-          animationDelay: delay + "s",
-          animationDirection: direction,
-          zIndex: -i,
-        };
+  useEffect(() => {
+    function generate_floating_animation(i: number) {
+      while (true) {
+        const top = getRandInt(15, 80);
+        const left = getRandInt(1, 80);
+        const delay = getRandInt(-20, 0);
+        const direction = (Math.random() < 0.5) ? "normal" : "reverse";
+        if (!((30<=top&&top<60)&&(20<=left&&left<60))) {
+          return {
+            top: top + "%",
+            left: left + "%",
+            animationDelay: delay + "s",
+            animationDirection: direction,
+            zIndex: -i,
+          };
+        }
       }
     }
-  }
 
-  useEffect(() => {
     if (neighbors == null) {
       if (process.env.NODE_ENV === "production") {
         window.fetch("/api/query", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ "query": appInfo.selection }) })
@@ -59,7 +61,7 @@ function Result(props: Props) {
               setLatency(result["latency"]);
               const ns = [];
               for (let i = 0; i < result["neighbors"].length; i++) {
-                ns.push({ id: result["neighbors"][i], style: generate_floating_animation(i)});
+                ns.push({ rank: i+1, style: generate_floating_animation(i), ...result["neighbors"]});
               }
               setNeighbors(ns);
             });
@@ -77,7 +79,7 @@ function Result(props: Props) {
           ];
           const ns = [];
           for (let i = 0; i < ids.length; i++) {
-            ns.push({ id: ids[i], style: generate_floating_animation(i)});
+            ns.push({ rank: i+1, id: ids[i], style: generate_floating_animation(i), distance: (i+1)*0.5});
           }
           setNeighbors(ns);
         }, 200);
@@ -92,9 +94,9 @@ function Result(props: Props) {
       const n = neighbors[i].id;
       const style = neighbors[i].style;
       const path = n.slice(0,1) + "/" + n.slice(0,2) + "/" + n.slice(0,3) + "/" + n + ".jpg";
-      if (n != selectedNeighbor) {
+      if (selectedNeighbor === null || (n !== selectedNeighbor.id)) {
         neighbor_images.push(
-          <img key={i} className="Result-neighbor-image" src={"https://storage.googleapis.com/match-it-fast-assets/images/" + path} alt={"neighbor id=" + n} style={style} onClick={() => setSelectedNeighbor(n) } />
+          <img key={i} className="Result-neighbor-image" src={"https://storage.googleapis.com/match-it-fast-assets/images/" + path} alt={"neighbor id=" + n} style={style} onClick={() => setSelectedNeighbor(neighbors[i]) } />
         );
       } else {
         neighbor_images.push(
@@ -107,7 +109,7 @@ function Result(props: Props) {
     );
   }
 
-  const highlight = selectedNeighbor ? [ <Highlight close={() => setSelectedNeighbor(null)} /> ] : [];
+  const highlight = selectedNeighbor ? [ <Highlight rank={selectedNeighbor.rank} distance={selectedNeighbor.distance} close={() => setSelectedNeighbor(null)} /> ] : [];
 
   return (
     <div className="Result">
