@@ -31,6 +31,11 @@ function Intro(props: Props) {
       <div className="Intro-start" onClick={() => setTransition(true)} >
         Start
       </div>
+      <div className="Intro-repo">
+        <a href="https://github.com/groovenauts/MatchItFast/" target="_blank" >
+          <img src="icons/github_64.png" style={{ width: "calc(32px + 2vmin)", height: "calc(32px + 2vmin)" }} />
+        </a>
+      </div>
       { transition ? <div className="Intro-transit" /> : null }
     </div>
   );

@@ -18,6 +18,21 @@
   font-size: calc(10px + 3vmin);
 }
 
+.Intro-repo {
+  margin-top: 20vh;
+  font-size: calc(10px + 2vmin);
+}
+
+.Intro-repo a {
+  color: white;
+  text-decoration: none;
+}
+
+Intro-repo a:visited {
+  text-decoration: underline;
+  color: inherit;
+}
+
 .Intro-start {
   width: 10vmin;
   height: 10vmin;
