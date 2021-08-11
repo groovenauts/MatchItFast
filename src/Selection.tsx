@@ -1,6 +1,6 @@
 import React from 'react';
 import AppInfo from 'AppInfo';
-import * as actions from 'Action'
+import * as actions from 'Action';
 import './Selection.css';
 
 type Props = {

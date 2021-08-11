@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Intro.css';
-import AppInfo from 'AppInfo'
-import * as actions from 'Action'
+import AppInfo from 'AppInfo';
+import * as actions from 'Action';
 
 type Props = {
   appInfo: AppInfo,
