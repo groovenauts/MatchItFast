@@ -26,7 +26,7 @@ function Intro(props: Props) {
         Match It Fast
       </div>
       <div className="Intro-subtitle">
-        Porwered by Vertex AI Matching Engine.
+        Powered by Vertex Matching Engine.
       </div>
       <div className="Intro-start" onClick={() => setTransition(true)} >
         Start
