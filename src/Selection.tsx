@@ -39,6 +39,7 @@ function Selection(props: Props) {
   const [ uploadImage, setUploadImage ] = useState<null | string>(null);
 
   const uploadedImageRef = useRef<HTMLImageElement>(null);
+  const uploaderRef = useRef<HTMLInputElement>(null);
 
   function processImage(ev: any) {
     const imageFile = ev.target.files[0];
@@ -76,8 +77,8 @@ function Selection(props: Props) {
 
   const uploader = [];
   if (uploadImage === null) {
-    uploader.push(<div key="upload-label" className="Selection-title"> or upload an image</div>);
-    uploader.push(<div key="uploader" className="Selection-uploader"><input type="file" accept="image/*" onChange={processImage} /></div>)
+    uploader.push(<div key="upload-label" className="Selection-title"> or <span onClick={() => uploaderRef.current!.click()} style={{textDecoration: "underline", cursor: "pointer"}} >upload an image</span></div>);
+    uploader.push(<div key="uploader" className="Selection-uploader"><input type="file" accept="image/*" onChange={processImage} ref={uploaderRef} /></div>)
   }
 
   return (

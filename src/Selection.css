@@ -30,3 +30,7 @@
   margin: 5px;
   cursor : pointer;
 }
+
+.Selection-uploader {
+  display: none;
+}
