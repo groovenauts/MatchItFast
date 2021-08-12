@@ -20,14 +20,17 @@ export const inference = (image_tag: HTMLImageElement) => {
   const raw_image = tf.tidy(() => tf.browser.fromPixels(image_tag, 3));
   const [h, w, channel] = raw_image.shape;
   const size = Math.min(h, w);
-  const image = tf.tidy(() => tf.image.cropAndResize(raw_image.reshape<tf.Tensor<tf.Rank.R4>>([1, h, w, channel]), [[(h-size)/2, (w-size)/2, (h+size)/2, (w+size)/2]], [0], [224, 224]).div(tf.scalar(255.0)));
+  const crop_window = [(h-size)/2/h, (w-size)/2/w, (h+size)/2/h, (w+size)/2/w];
+  const image = tf.tidy(() => tf.image.cropAndResize(raw_image.reshape<tf.Tensor<tf.Rank.R4>>([1, h, w, channel]), [crop_window], [0], [224, 224]).div(tf.scalar(255.0)));
   tf.dispose(raw_image);
   const result = tf.tidy(() => model.execute(image));
   tf.dispose(image);
   return new Promise((resolv: any, reject: any) => {
     if (result) {
-      result.data().then((embedding: Float32Array) => resolv(Array.from(embedding)));
-      tf.dispose(result);
+      result.data().then((embedding: Float32Array) => {
+        resolv(Array.from(embedding))
+        tf.dispose(result);
+      });
     }
   });
 };

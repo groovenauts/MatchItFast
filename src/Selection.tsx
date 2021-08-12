@@ -71,7 +71,7 @@ function Selection(props: Props) {
 
   const image_preview = [];
   if (uploadImage) {
-    image_preview.push(<img key="ImagePreview" src={uploadImage} alt="preview" style={{  borderRadius: "50%", objectFit: "cover" }} ref={uploadedImageRef} />);
+    image_preview.push(<img key="ImagePreview" src={uploadImage} alt="preview" style={{ width: "30vmin", height: "30vmin", borderRadius: "50%", objectFit: "cover" }} ref={uploadedImageRef} />);
   }
 
   const uploader = [];
