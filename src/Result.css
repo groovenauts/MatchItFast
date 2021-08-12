@@ -33,6 +33,7 @@
   border: solid;
   border-color: rgb(145, 180, 245);
   border-width: 5px;
+  object-fit: cover;
   transition: all 0.5s 0s ease;
   z-index: 1;
 }

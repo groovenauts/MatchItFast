@@ -71,7 +71,7 @@ function Selection(props: Props) {
 
   const image_preview = [];
   if (uploadImage) {
-    image_preview.push(<img key="ImagePreview" src={uploadImage} alt="preview" style={{ width: "224px", height: "224px", borderRadius: "50%" }} ref={uploadedImageRef} />);
+    image_preview.push(<img key="ImagePreview" src={uploadImage} alt="preview" style={{  borderRadius: "50%", objectFit: "cover" }} ref={uploadedImageRef} />);
   }
 
   const uploader = [];
@@ -82,8 +82,8 @@ function Selection(props: Props) {
 
   return (
     <div className="Selection">
-      { uploadImage ? [] : [ <div className="Selection-title">Choose one of the images below.</div> ]}
-      <div className="Selection-images">
+      { uploadImage ? [] : [ <div key="title" className="Selection-title">Choose one of the images below.</div> ]}
+      <div key="images" className="Selection-images">
         { query_image_tags }
       </div>
       { image_preview }
