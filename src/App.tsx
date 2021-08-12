@@ -3,8 +3,8 @@ import './App.css';
 import { initialAppInfo } from 'AppInfo';
 import appReducer from 'appReducer';
 import Intro from 'Intro';
-import Selection from 'Selection';
-import Result from 'Result';
+import ImageSelection from 'ImageSelection';
+import ImageResult from 'ImageResult';
 import { loadModel } from 'mobileNetV2';
 
 function App() {
@@ -23,9 +23,9 @@ function App() {
   } else if (appInfo.intro) {
     mainPage = <Intro appInfo={appInfo} dispatch={dispatch} />;
   } else if (appInfo.selection === null && appInfo.embedding === null) {
-    mainPage = <Selection appInfo={appInfo} dispatch={dispatch} />;
+    mainPage = <ImageSelection appInfo={appInfo} dispatch={dispatch} />;
   } else {
-    mainPage = <Result appInfo={appInfo} dispatch={dispatch} />;
+    mainPage = <ImageResult appInfo={appInfo} dispatch={dispatch} />;
   }
 
   return (

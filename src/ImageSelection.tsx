@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import AppInfo from 'AppInfo';
 import * as actions from 'Action';
-import './Selection.css';
+import './ImageSelection.css';
 import { inference } from 'mobileNetV2'
 
 type Props = {
@@ -33,7 +33,7 @@ function select_queries(num: number) {
   return queries;
 }
 
-function Selection(props: Props) {
+function ImageSelection(props: Props) {
   const dispatch = props.dispatch;
 
   const [ uploadImage, setUploadImage ] = useState<null | string>(null);
@@ -66,7 +66,7 @@ function Selection(props: Props) {
   if (uploadImage === null) {
     for(let i = 0; i < 3; i++) {
       const key = query_images[i];
-      query_image_tags.push(<img key={key} className="Selection-image" src={"images/"+key+".jpg"} alt={key} onClick={() => dispatch(actions.selectQuery(key))} />);
+      query_image_tags.push(<img key={key} className="ImageSelection-image" src={"images/"+key+".jpg"} alt={key} onClick={() => dispatch(actions.selectQuery(key))} />);
     }
   }
 
@@ -77,14 +77,14 @@ function Selection(props: Props) {
 
   const uploader = [];
   if (uploadImage === null) {
-    uploader.push(<div key="upload-label" className="Selection-title"> or <span onClick={() => uploaderRef.current!.click()} style={{textDecoration: "underline", cursor: "pointer"}} >upload an image</span></div>);
-    uploader.push(<div key="uploader" className="Selection-uploader"><input type="file" accept="image/*" onChange={processImage} ref={uploaderRef} /></div>)
+    uploader.push(<div key="upload-label" className="ImageSelection-title"> or <span onClick={() => uploaderRef.current!.click()} style={{textDecoration: "underline", cursor: "pointer"}} >upload an image</span></div>);
+    uploader.push(<div key="uploader" className="ImageSelection-uploader"><input type="file" accept="image/*" onChange={processImage} ref={uploaderRef} /></div>)
   }
 
   return (
-    <div className="Selection">
-      { uploadImage ? [] : [ <div key="title" className="Selection-title">Choose one of the images below.</div> ]}
-      <div key="images" className="Selection-images">
+    <div className="ImageSelection">
+      { uploadImage ? [] : [ <div key="title" className="ImageSelection-title">Choose one of the images below.</div> ]}
+      <div key="images" className="ImageSelection-images">
         { query_image_tags }
       </div>
       { image_preview }
@@ -93,4 +93,4 @@ function Selection(props: Props) {
   );
 }
 
-export default Selection;
+export default ImageSelection;

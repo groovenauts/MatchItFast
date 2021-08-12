@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import AppInfo from 'AppInfo';
 import * as actions from 'Action';
-import 'Result.css';
-import Highlight from 'Highlight';
+import 'ImageResult.css';
+import ImageHighlight from 'ImageHighlight';
 
 type Props = {
   appInfo: AppInfo,
   dispatch: any,
 };
 
-function Result(props: Props) {
+function ImageResult(props: Props) {
   const appInfo = props.appInfo;
   const dispatch = props.dispatch;
 
@@ -102,35 +102,35 @@ function Result(props: Props) {
       const path = n.slice(0,1) + "/" + n.slice(0,2) + "/" + n.slice(0,3) + "/" + n + ".jpg";
       if (selectedNeighbor === null || (n !== selectedNeighbor.id)) {
         neighbor_images.push(
-          <img key={i} className="Result-neighbor-image" src={"https://storage.googleapis.com/match-it-fast-assets/images/" + path} alt={"neighbor id=" + n} style={style} onClick={() => setSelectedNeighbor(neighbors[i]) } />
+          <img key={i} className="ImageResult-neighbor-image" src={"https://storage.googleapis.com/match-it-fast-assets/images/" + path} alt={"neighbor id=" + n} style={style} onClick={() => setSelectedNeighbor(neighbors[i]) } />
         );
       } else {
         neighbor_images.push(
-          <img key={i} className="Result-query-image" src={"https://storage.googleapis.com/match-it-fast-assets/images/" + path} alt={"neighbor id=" + n} style={{zIndex: 102}} />
+          <img key={i} className="ImageResult-query-image" src={"https://storage.googleapis.com/match-it-fast-assets/images/" + path} alt={"neighbor id=" + n} style={{zIndex: 102}} />
         );
       }
     }
     latency_tag.push(
-      <div key="latency" className="Result-query-latency">Matching Engine Query Latency = {(latency*1000).toFixed(2)} msec</div>
+      <div key="latency" className="ImageResult-query-latency">Matching Engine Query Latency = {(latency*1000).toFixed(2)} msec</div>
     );
   }
 
-  const highlight = selectedNeighbor ? [ <Highlight key="highlight" rank={selectedNeighbor.rank} distance={selectedNeighbor.distance} close={() => setSelectedNeighbor(null)} /> ] : [];
+  const highlight = selectedNeighbor ? [ <ImageHighlight key="highlight" rank={selectedNeighbor.rank} distance={selectedNeighbor.distance} close={() => setSelectedNeighbor(null)} /> ] : [];
 
   return (
-    <div className="Result">
-      <div key="title" className="Result-title">
+    <div className="ImageResult">
+      <div key="title" className="ImageResult-title">
         { neighbors ? "Top-25 matches from 2 million images." : "Searching from 2 million images..." }
       </div>
       <div key="query">
         { appInfo.imageUrl ?
-          <img className="Result-query-image" src={appInfo.imageUrl} alt="uploaded query" />
+          <img className="ImageResult-query-image" src={appInfo.imageUrl} alt="uploaded query" />
           :
-          <img className="Result-query-image" src={"images/" + appInfo.selection + ".jpg"} alt={"query image: '" + appInfo.selection + "'"} />
+          <img className="ImageResult-query-image" src={"images/" + appInfo.selection + ".jpg"} alt={"query image: '" + appInfo.selection + "'"} />
         }
 
       </div>
-      <div key="neighbors" className="Result-neighbors">
+      <div key="neighbors" className="ImageResult-neighbors">
         {neighbor_images}
       </div>
       { latency_tag }
@@ -142,4 +142,4 @@ function Result(props: Props) {
   );
 }
 
-export default Result;
+export default ImageResult;

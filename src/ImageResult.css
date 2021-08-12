@@ -1,4 +1,4 @@
-.Result {
+.ImageResult {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -10,20 +10,20 @@
   z-index: 0;
 }
 
-.Result-title {
+.ImageResult-title {
   position: absolute;
   top: 5vmin;
   font-size: 5vmin;
   font-weight: bolder;
 }
 
-.Result-query-latency {
+.ImageResult-query-latency {
   position: absolute;
   top: 11vmin;
   font-size: 4vmin;
 }
 
-.Result-query-image {
+.ImageResult-query-image {
   position: absolute;
   top: calc(50% - 15vmin);
   left: calc(50% - 15vmin);
@@ -38,7 +38,7 @@
   z-index: 1;
 }
 
-.Result-neighbor-image {
+.ImageResult-neighbor-image {
   position: absolute;
   width: 15vmin;
   height: 15vmin;
@@ -50,7 +50,7 @@
   animation: floating 20s linear infinite;
 }
 
-.Result-neighbor-image:hover {
+.ImageResult-neighbor-image:hover {
   width: 18vmin;
   height: 18vmin;
 }

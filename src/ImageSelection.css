@@ -1,4 +1,4 @@
-.Selection {
+.ImageSelection {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -9,18 +9,18 @@
   color: white;
 }
 
-.Selection-title {
+.ImageSelection-title {
   font-size: calc(10px + 3vmin);
   font-weight: bolder;
   margin-bottom: 5vmin;
 }
 
-.Selection-images {
+.ImageSelection-images {
   display: flex;
   flex-direction: row;
 }
 
-.Selection-image {
+.ImageSelection-image {
   width: 30vmin;
   height: 30vmin;
   border-radius: 50%;
@@ -31,6 +31,6 @@
   cursor : pointer;
 }
 
-.Selection-uploader {
+.ImageSelection-uploader {
   display: none;
 }

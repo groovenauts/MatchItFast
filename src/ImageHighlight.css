@@ -1,4 +1,4 @@
-.Highlight-background {
+.ImageHighlight-background {
   position: absolute;
   top: 0px;
   left: 0px;
@@ -8,7 +8,7 @@
   z-index: 100;
 }
 
-.Highlight-rank {
+.ImageHighlight-rank {
   position: absolute;
   top: calc(50% + 18vmin);
   width: 100%;
@@ -16,7 +16,7 @@
   z-index: 101;
 }
 
-.Highlight-distance {
+.ImageHighlight-distance {
   position: absolute;
   top: calc(50% + 22vmin);
   width: 100%;
@@ -24,7 +24,7 @@
   z-index: 101;
 }
 
-.Highlight-close {
+.ImageHighlight-close {
   font-size: 3vmin;
   position: absolute;
   right: 5vmin;
