@@ -3,6 +3,7 @@
 import os
 import json
 
+import urllib.request
 from flask import Flask, request, jsonify
 
 import matching.query as matching_query
@@ -20,7 +21,6 @@ def query():
     index_id = os.environ.get("MATCHING_ENGINE_DEPLOYED_INDEX_ID", "")
     ip = os.environ.get("MATCHING_ENGINE_ENDPOINT_IP", "")
 
-    print(request);
     j = request.get_json();
     if "query" not in j:
         return jsonify({ "neighbors": [], "latency": 0.0 })
@@ -38,7 +38,6 @@ def query_embedding():
     index_id = os.environ.get("MATCHING_ENGINE_DEPLOYED_INDEX_ID", "")
     ip = os.environ.get("MATCHING_ENGINE_ENDPOINT_IP", "")
 
-    print(request);
     j = request.get_json();
     if "embedding" not in j:
         return jsonify({ "neighbors": [], "latency": 0.0 })
@@ -49,6 +48,34 @@ def query_embedding():
     cli = matching_query.MatchingQueryClient(ip, index_id)
 
     result, latency = cli.query_embedding(embedding, num_neighbors=25)
+
+    return jsonify({ "neighbors": [ { "id": i.id, "distance": i.distance } for i in result.neighbor ], "latency": latency })
+
+@app.route('/api/query_document', methods=["POST"])
+def query_document():
+    index_id = os.environ.get("GDELT_GSG_DEPLOYED_INDEX_ID", "")
+    ip = os.environ.get("GDELT_GSG_ENDPOINT_IP", "")
+    endpoint = os.environ.get("GDELT_GSG_APP_ENDPOINT", "http://localhost/")
+
+    j = request.get_json();
+    if "text" not in j:
+        return jsonify({ "neighbors": [], "latency": 0.0 })
+    if type(j["text"]) != str:
+        return jsonify({ "neighbors": [], "latency": 0.0 })
+
+    text = j["text"]
+
+    # retrieve embedding for the text
+    post_data = json.dumps({"text": text})
+    req = urllib.request.Request(endpoint, data=post_data.encode("utf-8"), headers={"Content-Type": "application/json"}, method="POST")
+    with urllib.request.urlopen(req) as res:
+        body = json.loads(res.read())
+
+    embedding = body["embedding"]
+
+    cli = matching_query.MatchingQueryClient(ip, index_id)
+
+    result, latency = cli.query_embedding(embedding, num_neighbors=10)
 
     return jsonify({ "neighbors": [ { "id": i.id, "distance": i.distance } for i in result.neighbor ], "latency": latency })
 
