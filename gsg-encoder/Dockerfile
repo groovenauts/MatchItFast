@@ -12,6 +12,6 @@ WORKDIR ${WORKDIR}
 COPY requirements.txt .
 RUN pip install -U -r ./requirements.txt
 
-COPY main.py
+COPY main.py .
 
-RUN python3 main.y
+CMD [ "python3", "main.py" ]
