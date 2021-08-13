@@ -5,6 +5,7 @@ import json
 
 import urllib.request
 from flask import Flask, request, jsonify
+from google.cloud import storage
 
 import matching.query as matching_query
 
@@ -77,7 +78,20 @@ def query_document():
 
     result, latency = cli.query_embedding(embedding, num_neighbors=10)
 
-    return jsonify({ "neighbors": [ { "id": i.id, "distance": i.distance } for i in result.neighbor ], "latency": latency })
+    storage_client = storage.Client()
+    bucket = storage_client.bucket("gn-match-it-fast-assets")
+
+    def doc_information(docid):
+        object_name = "gdelt-gsg/{}/{}/{}/{}.json".format(docid[0:1], docid[0:2], docid[0:3], docid)
+        blob = bucket.blob(object_name)
+        obj = json.loads(blob.download_as_text())
+        return {
+                "lang": obj["lang"],
+                "title": obj["title"],
+                "url": obj["url"],
+                }
+
+    return jsonify({ "neighbors": [ { "id": i.id, "distance": i.distance, **doc_information(i.id) } for i in result.neighbor ], "latency": latency })
 
 if __name__ == '__main__':
     # This is used when running locally only. When deploying to Google App
