@@ -7,6 +7,11 @@ export const loadModel = () => {
   return new Promise((resolve, reject) => {
     tf.loadGraphModel("https://tfhub.dev/google/tfjs-model/imagenet/mobilenet_v2_100_224/feature_vector/3/default/1", { fromTFHub: true }).then((net) => {
       console.log("loaded mobileNetV2");
+      // warm up;
+      tf.tidy(() => {
+          net.execute(tf.zeros([1, 224, 224, 3]));
+          console.log("warmed up mobileNetV2");
+      });
       model = net;
       resolve(model);
     });
