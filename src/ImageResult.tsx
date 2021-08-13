@@ -56,7 +56,6 @@ function ImageResult(props: Props) {
             console.log("/api/query return HTTP status: " + res.status);
           } else {
             res.json().then((result: any) => {
-              console.log("result = " + result);
               setLatency(result["latency"]);
               const ns = [];
               for (let i = 0; i < result["neighbors"].length; i++) {
