@@ -1,0 +1,17 @@
+ steps:
+ # Build the container image
+ - name: 'gcr.io/cloud-builders/docker'
+   args: ['build', '-t', 'gcr.io/$_PROJECT_ID/universal-sentence-encoder-app:$COMMIT_SHA', '.']
+   dir: gsg-encoder
+ # Push the container image to Container Registry
+ - name: 'gcr.io/cloud-builders/docker'
+   args: ['push', 'gcr.io/$_PROJECT_ID/universal-sentence-encoder-app:$COMMIT_SHA']
+ # Tag the container image as 'latest'
+ - name: 'gcr.io/cloud-builders/docker'
+   args: ['tag', 'gcr.io/$_PROJECT_ID/universal-sentence-encoder-app:$COMMIT_SHA', 'gcr.io/$_PROJECT_ID/universal-sentence-encoder-app:latest']
+ # Push the 'latest' tag to Container Registry
+ - name: 'gcr.io/cloud-builders/docker'
+   args: ['push', 'gcr.io/$_PROJECT_ID/universal-sentence-encoder-app:latest']
+ images:
+ - 'gcr.io/$_PROJECT_ID/universal-sentence-encoder-app:$COMMIT_SHA'
+ - 'gcr.io/$_PROJECT_ID/universal-sentence-encoder-app:latest'
