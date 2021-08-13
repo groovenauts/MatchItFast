@@ -20,11 +20,11 @@ function App() {
   let mainPage;
   if (mobileNet === null) {
     mainPage = <div>Loading...</div>
-  } else if (appInfo.intro) {
+  } else if (appInfo.page === "Intro") {
     mainPage = <Intro appInfo={appInfo} dispatch={dispatch} />;
-  } else if (appInfo.selection === null && appInfo.embedding === null) {
+  } else if (appInfo.page === "ImageSelection") {
     mainPage = <ImageSelection appInfo={appInfo} dispatch={dispatch} />;
-  } else {
+  } else if (appInfo.page === "ImageResult") {
     mainPage = <ImageResult appInfo={appInfo} dispatch={dispatch} />;
   }
 

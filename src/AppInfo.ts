@@ -17,7 +17,7 @@
 
 
 export default class AppInfo {
-    intro: boolean;
+    page: string;
 
     selection: string | null;
 
@@ -25,7 +25,7 @@ export default class AppInfo {
     embedding: number[] | null;
 
     constructor(){
-        this.intro = true;
+        this.page = "Intro";
         this.selection = null;
         this.imageUrl = null;
         this.embedding = null;
@@ -34,4 +34,4 @@ export default class AppInfo {
 
 export const initialAppInfo: AppInfo = new AppInfo();
 
-// vim:ft=javascript sw=4
+// vim:ft=typescript sw=4
