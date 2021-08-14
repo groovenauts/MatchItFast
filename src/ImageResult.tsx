@@ -101,11 +101,11 @@ function ImageResult(props: Props) {
       const path = n.slice(0,1) + "/" + n.slice(0,2) + "/" + n.slice(0,3) + "/" + n + ".jpg";
       if (selectedNeighbor === null || (n !== selectedNeighbor.id)) {
         neighbor_images.push(
-          <img key={i} className="ImageResult-neighbor-image" src={"https://storage.googleapis.com/match-it-fast-assets/images/" + path} alt={"neighbor id=" + n} style={style} onClick={() => setSelectedNeighbor(neighbors[i]) } />
+          <img key={i} className="ImageResult-neighbor-image" src={"https://storage.googleapis.com/gn-match-it-fast-assets/images/" + path} alt={"neighbor id=" + n} style={style} onClick={() => setSelectedNeighbor(neighbors[i]) } />
         );
       } else {
         neighbor_images.push(
-          <img key={i} className="ImageResult-query-image" src={"https://storage.googleapis.com/match-it-fast-assets/images/" + path} alt={"neighbor id=" + n} style={{zIndex: 102}} />
+          <img key={i} className="ImageResult-query-image" src={"https://storage.googleapis.com/gn-match-it-fast-assets/images/" + path} alt={"neighbor id=" + n} style={{zIndex: 102}} />
         );
       }
     }
