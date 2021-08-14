@@ -25,8 +25,11 @@ export default class Action {
 
 export const start = () => new Action("start", null);
 export const reset = () => new Action("reset", null);
+export const enterImage = () => new Action("image", null);
 export const selectQuery = (query: string) => new Action("select", query);
 export const selectQueryWithImage = (imageUrl: string, embedding: number[]) => new Action("selectImage", { imageUrl: imageUrl, embedding: embedding });
+export const enterDocument = () => new Action("document", null);
+export const queryDocument = (text: string) => new Action("queryWithDocument", { text: text });
 
 
 // vim:ft=javascript sw=4

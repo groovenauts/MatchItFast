@@ -1,0 +1,55 @@
+.DocumentResult {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Roboto', sans-serif;
+  font-size: calc(10px + 2vmin);
+  color: white;
+  z-index: 0;
+}
+
+.DocumentResult-title {
+  position: absolute;
+  top: 5vmin;
+  font-size: 5vmin;
+  font-weight: bolder;
+}
+
+.DocumentResult-query-latency {
+  position: absolute;
+  top: 11vmin;
+  font-size: 4vmin;
+}
+
+.DocumentResult-neighbor-image {
+  position: absolute;
+  width: 15vmin;
+  height: 15vmin;
+  border-radius: 50%;
+  border: solid;
+  border-color: rgb(145, 180, 245);
+  border-width: 1px;
+  transition: all 0.5s 0s ease;
+  animation: floating 20s linear infinite;
+}
+
+.DocumentResult-neighbor-image:hover {
+  width: 18vmin;
+  height: 18vmin;
+}
+
+@keyframes floating {
+  0%{ transform: translateX(5.0vmin) translateY(0.0vmin); }
+  10%{ transform: translateX(4.045vmin) translateY(2.939vmin); }
+  20%{ transform: translateX(1.545vmin) translateY(4.755vmin); }
+  30%{ transform: translateX(-1.545vmin) translateY(4.755vmin); }
+  40%{ transform: translateX(-4.045vmin) translateY(2.939vmin); }
+  50%{ transform: translateX(-5.0vmin) translateY(0.0vmin); }
+  60%{ transform: translateX(-4.045vmin) translateY(-2.939vmin); }
+  70%{ transform: translateX(-1.545vmin) translateY(-4.755vmin); }
+  80%{ transform: translateX(1.545vmin) translateY(-4.755vmin); }
+  90%{ transform: translateX(4.045vmin) translateY(-2.939vmin); }
+  100%{ transform: translateX(5.0vmin) translateY(0.0vmin); }
+}

@@ -89,6 +89,9 @@ function ImageSelection(props: Props) {
       </div>
       { image_preview }
       { uploader }
+      <div key="back" className="reset-button" onClick={() => dispatch(actions.start())} >
+        Back
+      </div>
     </div>
   );
 }

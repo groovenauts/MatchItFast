@@ -1,0 +1,42 @@
+.DocumentForm {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Roboto', sans-serif;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.DocumentForm-title {
+  font-size: calc(10px + 3vmin);
+  font-weight: bolder;
+}
+
+.DocumentForm-subtitle {
+  font-size: calc(10px + 2vmin);
+}
+
+.DocumentForm-textarea {
+  width: 60vw;
+  height: 40vh;
+  margin-top: 5vmin;
+  border-radius: 5px;
+  font-size: 3vmin;
+  font-family: 'Robot', sans-serif;
+  filter: drop-shadow(10px 10px 4px rgb(98, 135, 252));
+}
+
+.DocumentForm-query-button {
+  font-size: 3vmin;
+  width: 10vmin;
+  height: 10vmin;
+  border-radius: 50%;
+  background-color: white;
+  line-height: 10vmin;
+  color: rgb(60, 133, 244);
+  cursor : pointer;
+  margin-top: 3vmin;
+  animation: ripple 1.5s linear infinite;
+}

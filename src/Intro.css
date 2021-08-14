@@ -34,11 +34,11 @@ Intro-repo a:visited {
 }
 
 .Intro-start {
-  width: 10vmin;
-  height: 10vmin;
+  width: 12vmin;
+  height: 12vmin;
   border-radius: 50%;
   background-color: white;
-  line-height: 10vmin;
+  line-height: 12vmin;
   color: rgb(60, 133, 244);
   margin-top: 5vh;
   font-weight: bolder;

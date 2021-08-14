@@ -133,8 +133,8 @@ function ImageResult(props: Props) {
         {neighbor_images}
       </div>
       { latency_tag }
-      <div key="reset" className="reset-button" onClick={() => dispatch(actions.reset())} >
-        Reset
+      <div key="back" className="reset-button" onClick={() => dispatch(actions.enterImage())} >
+        Back
       </div>
       { highlight }
     </div>
