@@ -1,6 +1,6 @@
 # MatchIt Fast
 
-MatchIt Fast is the demonstration application with [Vertex AI Matching Engine](https://cloud.google.com/vertex-ai/docs/matching-engine/overview).
+MatchIt Fast is the demonstration application with [Vertex Matching Engine](https://cloud.google.com/vertex-ai/docs/matching-engine/overview).
 
 ## Architecture
 
