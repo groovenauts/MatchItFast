@@ -74,7 +74,7 @@ function DocumentResult(props: Props) {
     for(let i in neighbors) {
       const n = neighbors[i];
       neighbor_texts.push(
-        <div key={i} className="DocumentResult-neighbor-text"><a href={n.url} target="_blank" rel="noreferrer" >{n.title}</a></div>
+        <a href={n.url} target="_blank" rel="noreferrer" key={i} className="DocumentResult-neighbor-text">{n.title}</a>
       );
     }
     latency_tag.push(
