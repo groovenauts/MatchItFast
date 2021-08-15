@@ -15,9 +15,13 @@ function App() {
   const [ mobileNet, setMobileNet ] = useState<any>(null);
 
   useEffect(() => {
-    if (mobileNet === null) {
-      loadModel().then((model) => setMobileNet(model));
-    }
+    const f = async () => {
+      if (mobileNet === null) {
+        const m = await loadModel();
+        setMobileNet(m);
+      }
+    };
+    f();
   }, [mobileNet]);
 
   let mainPage;

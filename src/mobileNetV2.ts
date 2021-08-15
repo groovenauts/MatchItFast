@@ -28,5 +28,5 @@ export const inference = async (image_tag: HTMLImageElement) => {
   tf.dispose(image);
   const embedding = await result.data();
   tf.dispose(result);
-  return Array.from(embedding);
+  return Array.from<number>(embedding);
 };

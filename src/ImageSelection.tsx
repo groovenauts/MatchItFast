@@ -50,14 +50,18 @@ function ImageSelection(props: Props) {
 
   useEffect(() => {
     if (uploadImage) {
-    setTimeout(() => {
-      const tag = uploadedImageRef.current;
-      if (tag) {
-        inference(tag)!.then((embedding: any) => {
-          dispatch(actions.selectQueryWithImage(uploadImage!, embedding));
-        });
-      }
-    }, 1000);
+      const f = async () => {
+        const tag = uploadedImageRef.current;
+        console.log(tag);
+        if (tag) {
+          const embedding = await inference(tag);
+          console.log(embedding);
+          if (embedding) {
+            dispatch(actions.selectQueryWithImage(uploadImage, embedding));
+          }
+        }
+      };
+      setTimeout(() => { f(); }, 100);
     }
   }, [uploadImage, dispatch]);
 
