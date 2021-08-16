@@ -6,6 +6,7 @@ import json
 import urllib.request
 from flask import Flask, request, jsonify
 from google.cloud import storage
+import py_ogp_parser.parser as ogp_parser
 
 import matching.query as matching_query
 
@@ -92,6 +93,23 @@ def query_document():
                 }
 
     return jsonify({ "neighbors": [ { "id": i.id, "distance": i.distance, **doc_information(i.id) } for i in result.neighbor ], "latency": latency })
+
+@app.route('/api/ogp_image', methods=["POST"])
+def ogp_image():
+    j = request.get_json();
+    if ("url" not in j) or (type(j["url"]) != str):
+        return jsonify({ "ogpImage": None })
+
+    status, result = ogp_parser.request(j["url"])
+    if status != 200:
+        return jsonify({ "ogpImage": None })
+    if "og:image" not in result["ogp"]:
+        return jsonify({ "ogpImage": None })
+    ogp_images = result["ogp"]["og:image"]
+    if len(ogp_images) < 1:
+        return jsonify({ "ogpImage": None })
+    return jsonify({ "ogpImage": ogp_images[0] })
+
 
 if __name__ == '__main__':
     # This is used when running locally only. When deploying to Google App

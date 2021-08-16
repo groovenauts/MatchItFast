@@ -41,4 +41,4 @@ handlers:
 
 vpc_access_connector:
   name: "projects/PROJECT_ID/locations/REGION/connectors/CONNECTOR_NAME"
-  egress_setting: all-traffic
+  egress_setting: private-ranges-only

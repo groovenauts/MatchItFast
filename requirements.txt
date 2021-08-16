@@ -4,3 +4,4 @@ grpcio-gcp
 googleapis-common-protos
 protobuf==3.17.3
 google-cloud-storage==1.42.0
+py-ogp-parser==0.2.1
