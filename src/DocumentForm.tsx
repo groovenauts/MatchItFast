@@ -16,7 +16,7 @@ function DocumentForm(props: Props) {
   return (
     <div className="DocumentForm">
       <div className="DocumentForm-title">Enter query text</div>
-      <div className="DocumentForm-subtitle">(English only)</div>
+      <div className="DocumentForm-subtitle">(currently only available in English)</div>
       <textarea className="DocumentForm-textarea" ref={textareaRef} />
       <div className="DocumentForm-query-button" onClick={() => dispatch(actions.queryDocument(textareaRef.current!.value))} >Query</div>
       <div key="back" className="reset-button" onClick={() => dispatch(actions.start())} >Back </div>
