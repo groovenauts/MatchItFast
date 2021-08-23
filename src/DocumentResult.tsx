@@ -23,7 +23,6 @@ function DocumentResult(props: Props) {
   }
 
   const [ neighbors, setNeighbors ] = useState<null | Neighbor[]>(null);
-  const [ latency, setLatency ] = useState(0.0);
 
   useEffect(() => {
     async function getOgpImage(url: string) {
@@ -57,7 +56,6 @@ function DocumentResult(props: Props) {
                 return [];
             } else {
                 const result = await res.json();
-                setLatency(result["latency"]);
                 const ns = [];
                 for (let i = 0; i < result["neighbors"].length; i++) {
                     ns.push({ rank: i+1, ...result["neighbors"][i]});
@@ -108,7 +106,6 @@ function DocumentResult(props: Props) {
   }, [neighbors, appInfo.documentText])
 
   const neighbor_texts = [];
-  const latency_tag = [];
   if (neighbors != null) {
     for(let i in neighbors) {
       const n = neighbors[i];
@@ -116,9 +113,6 @@ function DocumentResult(props: Props) {
         <a href={n.url} target="_blank" rel="noreferrer" key={i} className="DocumentResult-neighbor-text"><div style={ n.ogpImage ? { backgroundImage: "url(" + n.ogpImage + ")" } : {} }>{n.title}</div></a>
       );
     }
-    latency_tag.push(
-      <div key="latency" className="DocumentResult-query-latency">Matching Engine Query Latency = {(latency*1000).toFixed(2)} msec</div>
-    );
   }
 
   return (
@@ -126,7 +120,6 @@ function DocumentResult(props: Props) {
       <div key="title" className="DocumentResult-title">
         { neighbors ? "Top-10 matches from 3.6 million documents." : "Searching from 3.6 million documents..." }
       </div>
-      { latency_tag }
       <div key="neighbors" className="DocumentResult-neighbors">
         {neighbor_texts}
       </div>

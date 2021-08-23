@@ -21,7 +21,6 @@ function ImageResult(props: Props) {
   }
 
   const [ neighbors, setNeighbors ] = useState<null | Neighbor[]>(null);
-  const [ latency, setLatency ] = useState(0.0);
   const [ selectedNeighbor, setSelectedNeighbor ] = useState<null | Neighbor>(null);
 
   function getRandInt(min: number, max: number) {
@@ -56,7 +55,6 @@ function ImageResult(props: Props) {
             console.log("/api/query return HTTP status: " + res.status);
           } else {
             res.json().then((result: any) => {
-              setLatency(result["latency"]);
               const ns = [];
               for (let i = 0; i < result["neighbors"].length; i++) {
                 ns.push({ rank: i+1, style: generate_floating_animation(i), ...result["neighbors"][i]});
@@ -74,7 +72,6 @@ function ImageResult(props: Props) {
         }
       } else {
         setTimeout(() => {
-          setLatency(0.02);
           const ids = [
             "0e979c911aa99339a9c125fe", "645fbea89b680842c6c11201", "31bd8b938d5a05b453d3cc2f", "14addffe96e27ece0da0f784", "222017804aa04eb9abb3874d",
             "b77f6065c33fc2f67a762937", "b77f672f6b06fc2e610e339e", "b77f7185c787be673299d370", "b77f74342d29a20a9344cff9", "b77f78810295b41398f28c5e",
@@ -93,7 +90,6 @@ function ImageResult(props: Props) {
   }, [neighbors, appInfo.selection, appInfo.embedding])
 
   const neighbor_images = [];
-  const latency_tag = [];
   if (neighbors != null) {
     for(let i in neighbors) {
       const n = neighbors[i].id;
@@ -109,9 +105,6 @@ function ImageResult(props: Props) {
         );
       }
     }
-    latency_tag.push(
-      <div key="latency" className="ImageResult-query-latency">Matching Engine Query Latency = {(latency*1000).toFixed(2)} msec</div>
-    );
   }
 
   const highlight = selectedNeighbor ? [ <ImageHighlight key="highlight" rank={selectedNeighbor.rank} distance={selectedNeighbor.distance} close={() => setSelectedNeighbor(null)} /> ] : [];
@@ -132,7 +125,6 @@ function ImageResult(props: Props) {
       <div key="neighbors" className="ImageResult-neighbors">
         {neighbor_images}
       </div>
-      { latency_tag }
       <div key="back" className="reset-button" onClick={() => dispatch(actions.enterImage())} >
         Back
       </div>
