@@ -2,6 +2,7 @@
 
 import os
 import json
+import time
 
 import urllib.request
 from flask import Flask, request, jsonify
@@ -69,7 +70,10 @@ def query_document():
 
     # retrieve embedding for the text
     post_data = json.dumps({"text": text})
+    st = time.time()
     req = urllib.request.Request(endpoint, data=post_data.encode("utf-8"), headers={"Content-Type": "application/json"}, method="POST")
+    ed = time.time()
+    embedding_latency = ed - st
     with urllib.request.urlopen(req) as res:
         body = json.loads(res.read())
 
@@ -78,6 +82,8 @@ def query_document():
     cli = matching_query.MatchingQueryClient(ip, index_id)
 
     result, latency = cli.query_embedding(embedding, num_neighbors=10)
+
+    print("Embedding Latency = {} sec, Query Latency = {} sec".format(embedding_latency, latency))
 
     storage_client = storage.Client()
     bucket = storage_client.bucket("gn-match-it-fast-assets")
