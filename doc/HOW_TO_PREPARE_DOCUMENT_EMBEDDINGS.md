@@ -17,7 +17,9 @@ And the number of rows in the public dataset is growing every day. We want to ex
 
 To eliminate the redundant rows and keep traceability, we decide to assign ID for each article based on the SHA1 hash from title and url column.
 
-Now let's extract embeddings from the public dataset with unique ID for each article with BigQuery.
+And to show the fine query results, we want to de-duplicate articles whose the same titles.
+
+Now let's extract embeddings from the public dataset with unique title for each article with BigQuery.
 
 ```
 WITH
@@ -34,7 +36,7 @@ WITH
   gsg_docembed_with_id_last_date AS (
   SELECT
     *,
-    LAST_VALUE(date) OVER(PARTITION BY id ORDER BY date ASC ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) AS last_date,
+    LAST_VALUE(date) OVER(PARTITION BY title ORDER BY date ASC ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) AS last_date,
   FROM
     gsg_docembed_with_id )
 SELECT
