@@ -17,11 +17,11 @@ function ModeSelection(props: Props) {
       <div key="selectors" className="ModeSelection-selectors">
         <div className="ModeSelection-selector">
           <img src="images/image.jpg" alt="Img similarity search mode" onClick={() => dispatch(actions.enterImage())} />
-          <div>Image similarity search</div>
+          <div>Image Similarity Search</div>
         </div>
         <div className="ModeSelection-selector">
-          <img src="images/text.jpg" alt="Document similarity search mode" onClick={() => dispatch(actions.enterDocument())} />
-          <div>Document similarity search</div>
+          <img src="images/text.jpg" alt="News similarity search mode" onClick={() => dispatch(actions.enterNews())} />
+          <div>News Similarity Search</div>
         </div>
       </div>
       <div key="reset" className="reset-button" onClick={() => dispatch(actions.reset())} >

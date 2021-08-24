@@ -24,14 +24,14 @@ export default class AppInfo {
     imageUrl: string | null;
     embedding: number[] | null;
 
-    documentText: string | null;
+    articleText: string | null;
 
     constructor(){
         this.page = "Intro";
         this.selection = null;
         this.imageUrl = null;
         this.embedding = null;
-        this.documentText = null;
+        this.articleText = null;
     }
 }
 

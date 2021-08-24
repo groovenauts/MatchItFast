@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import AppInfo from 'AppInfo';
 import * as actions from 'Action';
-import 'DocumentResult.css';
+import 'NewsResult.css';
 
 type Props = {
   appInfo: AppInfo,
@@ -10,7 +10,7 @@ type Props = {
 
 const datasetUrl = "https://console.cloud.google.com/bigquery?p=gn-match-it-fast&d=match_it_fast&t=gdelt_gsg_embeddings&page=table"
 
-function DocumentResult(props: Props) {
+function NewsResult(props: Props) {
   const appInfo = props.appInfo;
   const dispatch = props.dispatch;
 
@@ -52,7 +52,7 @@ function DocumentResult(props: Props) {
 
     async function getNeighbors() {
         if (process.env.NODE_ENV === "production") {
-            const res = await window.fetch("/api/query_document", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ "text": appInfo.documentText }) });
+            const res = await window.fetch("/api/query_document", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ "text": appInfo.articleText }) });
             if (res.status !== 200) {
                 console.log("/api/query_document return HTTP status: " + res.status);
                 return [];
@@ -105,33 +105,33 @@ function DocumentResult(props: Props) {
         };
         f();
     }
-  }, [neighbors, appInfo.documentText])
+  }, [neighbors, appInfo.articleText])
 
   const neighbor_texts = [];
   if (neighbors != null) {
     for(let i in neighbors) {
       const n = neighbors[i];
       neighbor_texts.push(
-        <a href={n.url} target="_blank" rel="noreferrer" key={i} className="DocumentResult-neighbor-text"><div style={ n.ogpImage ? { backgroundImage: "url(" + n.ogpImage + ")" } : {} }>{n.title}</div></a>
+        <a href={n.url} target="_blank" rel="noreferrer" key={i} className="NewsResult-neighbor-text"><div style={ n.ogpImage ? { backgroundImage: "url(" + n.ogpImage + ")" } : {} }>{n.title}</div></a>
       );
     }
   }
 
   return (
-    <div className="DocumentResult">
-      <div key="title" className="DocumentResult-title">
-        { neighbors ? ["Top-10 matches from ", <a href={datasetUrl} style={{"color": "inherit"}} target="_blank" rel="noreferrer" >2.7 million articles</a>, "."] : "Searching from 2.7 million documents..." }
+    <div className="NewsResult">
+      <div key="title" className="NewsResult-title">
+        { neighbors ? ["Top-10 matches from ", <a href={datasetUrl} style={{"color": "inherit"}} target="_blank" rel="noreferrer" >2.7 million articles</a>, "."] : "Searching from 2.7 million articles..." }
       </div>
-      <div key="neighbors" className="DocumentResult-neighbors">
+      <div key="neighbors" className="NewsResult-neighbors">
         {neighbor_texts}
       </div>
-      <div key="back" className="reset-button" onClick={() => dispatch(actions.enterDocument())} >
+      <div key="back" className="reset-button" onClick={() => dispatch(actions.enterNews())} >
         Back
       </div>
     </div>
   );
 }
 
-export default DocumentResult;
+export default NewsResult;
 
 // vim:ft=typescript sw=4

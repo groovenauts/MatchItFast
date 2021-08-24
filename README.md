@@ -69,8 +69,8 @@ Change the following setting values in app.yaml.
 |----------------------|-------------|
 | `MATCHING_ENGINE_DEPLOYED_INDEX_ID` | The deployed index ID for image search |
 | `MATCHING_ENGINE_ENDPOINT_IP` | The IP address of deployed index for image search |
-| `GDELT_GSG_DEPLOYED_INDEX_ID` | The deployed index ID for document search |
-| `GDELT_GSG_ENDPOINT_IP` | The IP address of deployed index for document search |
+| `GDELT_GSG_DEPLOYED_INDEX_ID` | The deployed index ID for news search |
+| `GDELT_GSG_ENDPOINT_IP` | The IP address of deployed index for news search |
 | `GDELT_GSG_APP_ENDPOINT` | 'http://{IP-ADDR}' IP-ADDR should be replaced with the internal IP address of the GCE instance you created. |
 
 #### `vpc_access_connector`

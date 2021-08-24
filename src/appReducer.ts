@@ -13,10 +13,10 @@ function appReducer(appInfo: any, action: Action) {
             return { ...appInfo, ...{ page: "ImageResult", selection: action.data, imageUrl: null,  } };
         case "selectImage":
             return { ...appInfo, ...{ page: "ImageResult", selection: null, imageUrl: action.data.imageUrl, embedding: action.data.embedding } };
-        case "document":
-            return { ...appInfo, ...{ page: "DocumentForm", documentText: null } };
-        case "queryWithDocument":
-            return { ...appInfo, ...{ page: "DocumentResult", documentText: action.data.text } };
+        case "news":
+            return { ...appInfo, ...{ page: "NewsForm", articleText: null } };
+        case "queryWithArticle":
+            return { ...appInfo, ...{ page: "NewsResult", articleText: action.data.text } };
     }
 }
 

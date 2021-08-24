@@ -1,4 +1,4 @@
-.DocumentResult {
+.NewsResult {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -10,20 +10,20 @@
   z-index: 0;
 }
 
-.DocumentResult-title {
+.NewsResult-title {
   position: absolute;
   top: 5vmin;
   font-size: 5vmin;
   font-weight: bolder;
 }
 
-.DocumentResult-query-latency {
+.NewsResult-query-latency {
   position: absolute;
   top: 11vmin;
   font-size: 4vmin;
 }
 
-.DocumentResult-neighbors {
+.NewsResult-neighbors {
   position: absolute;
   top: 18vmin;
   left: 10%;
@@ -36,7 +36,7 @@
   color: rgb(60, 133, 244);
 }
 
-.DocumentResult-neighbor-text {
+.NewsResult-neighbor-text {
   width: 18%;
   height: 48%;
   border-radius: 5%;
@@ -52,19 +52,19 @@
   text-decoration: none;
 }
 
-.DocumentResult-neighbor-text:hover {
+.NewsResult-neighbor-text:hover {
   text-decoration: underline;
 }
 
-.DocumentResult-neighbor-text:link {
+.NewsResult-neighbor-text:link {
   color: inherit;
 }
 
-.DocumentResult-neighbor-text:visited {
+.NewsResult-neighbor-text:visited {
   color: inherit;
 }
 
-.DocumentResult-neighbor-text div {
+.NewsResult-neighbor-text div {
   width: 100%;
   height: 100%;
   padding: 5px;
