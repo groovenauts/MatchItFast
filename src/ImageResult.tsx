@@ -9,6 +9,8 @@ type Props = {
   dispatch: any,
 };
 
+const datasetUrl = "https://console.cloud.google.com/bigquery?p=gn-match-it-fast&d=match_it_fast&t=wikimedia_image_embeddings&page=table"
+
 function ImageResult(props: Props) {
   const appInfo = props.appInfo;
   const dispatch = props.dispatch;
@@ -112,7 +114,7 @@ function ImageResult(props: Props) {
   return (
     <div className="ImageResult">
       <div key="title" className="ImageResult-title">
-        { neighbors ? "Top-25 matches from 2 million images." : "Searching from 2 million images..." }
+        { neighbors ? ["Top-25 matches from ", <a href={datasetUrl} style={{"color": "inherit"}} target="_blank" rel="noreferrer" >2 million images</a>, "."] : "Searching from 2 million images..." }
       </div>
       <div key="query">
         { appInfo.imageUrl ?

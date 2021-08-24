@@ -8,6 +8,8 @@ type Props = {
   dispatch: any,
 };
 
+const datasetUrl = "https://console.cloud.google.com/bigquery?p=gn-match-it-fast&d=match_it_fast&t=gdelt_gsg_embeddings&page=table"
+
 function DocumentResult(props: Props) {
   const appInfo = props.appInfo;
   const dispatch = props.dispatch;
@@ -118,7 +120,7 @@ function DocumentResult(props: Props) {
   return (
     <div className="DocumentResult">
       <div key="title" className="DocumentResult-title">
-        { neighbors ? "Top-10 matches from 3.6 million documents." : "Searching from 3.6 million documents..." }
+        { neighbors ? ["Top-10 matches from ", <a href={datasetUrl} style={{"color": "inherit"}} target="_blank" rel="noreferrer" >2.7 million articles</a>, "."] : "Searching from 2.7 million documents..." }
       </div>
       <div key="neighbors" className="DocumentResult-neighbors">
         {neighbor_texts}
