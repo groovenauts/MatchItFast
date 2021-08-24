@@ -100,7 +100,11 @@ def ogp_image():
     if ("url" not in j) or (type(j["url"]) != str):
         return jsonify({ "ogpImage": None })
 
-    status, result = ogp_parser.request(j["url"])
+    try:
+        status, result = ogp_parser.request(j["url"])
+    except AttributeError as e:
+        print("opg_parser raise AttributeError for parsing OGP elements of {}".format(j["url"]))
+        return jsonify({ "ogpImage": None })
     if status != 200:
         return jsonify({ "ogpImage": None })
     if "og:image" not in result["ogp"]:
