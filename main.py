@@ -120,6 +120,10 @@ def ogp_image():
         return jsonify({ "ogpImage": None })
     return jsonify({ "ogpImage": ogp_images[0] })
 
+@app.route('/_ah/warmup')
+def warmup():
+    return '', 200, {}
+
 
 if __name__ == '__main__':
     # This is used when running locally only. When deploying to Google App
