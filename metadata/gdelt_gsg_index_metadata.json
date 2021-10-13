@@ -1,0 +1,14 @@
+{
+  "contentsDeltaUri": "gs://match-it-fast-us-central1/gdelt_gsg/index-1",
+  "config": {
+    "dimensions": 512,
+    "approximateNeighborsCount": 150,
+    "distanceMeasureType": "COSINE_DISTANCE",
+    "algorithm_config": {
+      "treeAhConfig": {
+        "leafNodeEmbeddingCount": 1000,
+        "leafNodesToSearchPercent": 5
+      }
+    }
+  }
+}
