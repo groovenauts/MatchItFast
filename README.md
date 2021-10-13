@@ -33,6 +33,21 @@ To create Indexes and deploy them to the Index Endpoints, see [the documentation
 MatchIt Fast app requires the two indexes of images and articles deployed to index endpoints and accessible via [Private Service Access](https://cloud.google.com/vpc/docs/private-services-access).
 The Private Service Access should be configured on the VPC network you created above.
 
+The example command lines to create Matching Engine index for the MatchIt Fast demonstration are shown below.
+
+```
+gcloud --project=gn-match-it-fast beta ai indexes create \
+       --display-name=gdelt-gsg \
+       --description="GDELT GSG Demo" \
+       --metadata-file=metadata/gdelt_gsg_index_metadata.json \
+       --region=us-central1
+gcloud --project=gn-match-it-fast beta ai indexes create \
+       --display-name=wikimedia-images \
+       --description="Wikimedia Image Demo" \
+       --metadata-file=metadata/wikimedia_images_index_metadata.json \
+       --region=us-central1
+```
+
 ### Serverless VPC Access
 
 To access Matching Engine Index Endpoints via Private Service Access from App Engine, you need to create [Serverless VPC Access](https://cloud.google.com/vpc/docs/configure-serverless-vpc-access).
