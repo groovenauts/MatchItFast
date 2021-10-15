@@ -12,7 +12,7 @@ https://matchit.magellanic-clouds.com/
 
 ## How it works
 
-See: [How it works](doc/HOW_IT_WORKS.md)
+See ![How it works](doc/HOW_IT_WORKS.md)
 
 ## Preparation
 
