@@ -111,6 +111,10 @@ def ogp_image():
     except AttributeError as e:
         print("opg_parser raise AttributeError for parsing OGP elements of {}".format(j["url"]))
         return jsonify({ "ogpImage": None })
+    except Exeption as e:
+        print("opg_parser raise Exception during retrieve OGP of {}: {}".format(j["url"], e))
+        return jsonify({ "ogpImage": None })
+
     if status != 200:
         return jsonify({ "ogpImage": None })
     if "og:image" not in result["ogp"]:
