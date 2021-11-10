@@ -23,7 +23,7 @@ function Intro(props: Props) {
   return (
     <div className="Intro">
       <div className="Intro-title">
-        Match It Fast
+        MatchIt Fast
       </div>
       <div className="Intro-subtitle">
         Powered by Vertex Matching Engine.

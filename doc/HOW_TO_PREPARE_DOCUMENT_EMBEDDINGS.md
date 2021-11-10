@@ -1,6 +1,6 @@
 # How to prepare document embeddings
 
-The document embeddings for Match It Fast demo application was derived from the public dataset of the Global Similarity Graph Document Embeddings.
+The document embeddings for MatchIt Fast demo application was derived from the public dataset of the Global Similarity Graph Document Embeddings.
 This article describe how to extract and preprocess the data to be create Vertex Matching Engine index with BigQuery and Dataflow.
 
 ## The public dataset
@@ -63,7 +63,7 @@ To fit the format, you can just extract the BigQuery table into GCS.
 bq extract --destination_format=NEWLINE_DELIMITED_JSON ds.document_embeddings 'gs://mybucket/document_embeddings/index/embeddings_*.json'
 ```
 
-The Match It Fast app also reqiures metadata (ID, title, url) for the articles staged on the Google Cloud Storage bucket.
+The MatchIt Fast app also reqiures metadata (ID, title, url) for the articles staged on the Google Cloud Storage bucket.
 To address this task, we adopt the Cloud Dataflow pipeline to extract metadata from BigQuery table and save them into individual files on GCS.
 
 The source of the pipeline is BigQuery

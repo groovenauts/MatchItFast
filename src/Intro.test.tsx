@@ -4,6 +4,6 @@ import Intro from './Intro';
 
 test('renders learn react link', () => {
   render(<Intro />);
-  const linkElement = screen.getByText(/Match It Fast/i);
+  const linkElement = screen.getByText(/MatchIt Fast/i);
   expect(linkElement).toBeInTheDocument();
 });
