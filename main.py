@@ -10,6 +10,7 @@ from google.cloud import storage
 import py_ogp_parser.parser as ogp_parser
 
 import matching.query as matching_query
+import vision.embedding
 
 app = Flask(__name__)
 
@@ -21,8 +22,8 @@ def index():
 
 @app.route('/api/query', methods=["POST"])
 def query():
-    index_id = os.environ.get("MATCHING_ENGINE_DEPLOYED_INDEX_ID", "")
-    ip = os.environ.get("MATCHING_ENGINE_ENDPOINT_IP", "")
+    index_id = os.environ.get("WIKIMEDIA_IMAGES_V2_DEPLOYED_INDEX_ID", "")
+    ip = os.environ.get("WIKIMEDIA_IMAGES_V2_ENDPOINT_IP", "")
 
     j = request.get_json();
     if "query" not in j:
@@ -36,15 +37,23 @@ def query():
 
     return jsonify({ "neighbors": [ { "id": i.id, "distance": i.distance } for i in result.neighbor ], "latency": latency })
 
-@app.route('/api/query_embedding', methods=["POST"])
-def query_embedding():
-    index_id = os.environ.get("MATCHING_ENGINE_DEPLOYED_INDEX_ID", "")
-    ip = os.environ.get("MATCHING_ENGINE_ENDPOINT_IP", "")
+@app.route('/api/query_image', methods=["POST"])
+def query_image():
+    index_id = os.environ.get("WIKIMEDIA_IMAGES_V2_DEPLOYED_INDEX_ID", "")
+    ip = os.environ.get("WIKIMEDIA_IMAGES_V2_ENDPOINT_IP", "")
+
+    # image uploaded via request body
+    buf = request.get_data()
+    if not(buf) or len(buf) == 0:
+        print("Invalid query_image request.")
+        return jsonify({ "neighbors": [], "latency": 0.0 })
+
+    embedding = vision.embedding.image_embedding(buf)
 
     j = request.get_json();
-    if "embedding" not in j:
+    if "image" not in j:
         return jsonify({ "neighbors": [], "latency": 0.0 })
-    if type(j["embedding"]) != list or len(j["embedding"]) != 1280:
+    if type(j["image"]) != list or len(j["embedding"]) != 1280:
         return jsonify({ "neighbors": [], "latency": 0.0 })
     embedding = j["embedding"]
 
