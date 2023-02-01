@@ -1,0 +1,20 @@
+{
+  "displayName": "wikimedia images index (v2)",
+  "description": "index for Wikimedia Images with Vision API embedding(v0.1)",
+  "metadata": {
+    "contentsDeltaUri": "gs://match-it-fast-us-central1/wikimedia_images/index_v2",
+    "config": {
+      "dimensions": 1024,
+      "approximateNeighborsCount": 150,
+      "distanceMeasureType": "COSINE_DISTANCE",
+      "shardSize": "SHARD_SIZE_MEDIUM",
+      "algorithm_config": {
+        "treeAhConfig": {
+          "leafNodeEmbeddingCount": 1000,
+          "leafNodesToSearchPercent": 5
+        }
+      }
+    }
+  },
+  "indexUpdateMethod": "STREAM_UPDATE"
+}
