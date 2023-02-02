@@ -44,18 +44,13 @@ def query_image():
 
     # image uploaded via request body
     buf = request.get_data()
+    print("query_image: Content-Length: {}".format(request.headers.get("Content-Length")))
+    print("query_image: request body length: {}".format(len(buf)))
     if not(buf) or len(buf) == 0:
         print("Invalid query_image request.")
         return jsonify({ "neighbors": [], "latency": 0.0 })
 
     embedding = vision.embedding.image_embedding(buf)
-
-    j = request.get_json();
-    if "image" not in j:
-        return jsonify({ "neighbors": [], "latency": 0.0 })
-    if type(j["image"]) != list or len(j["embedding"]) != 1280:
-        return jsonify({ "neighbors": [], "latency": 0.0 })
-    embedding = j["embedding"]
 
     cli = matching_query.MatchingQueryClient(ip, index_id)
 

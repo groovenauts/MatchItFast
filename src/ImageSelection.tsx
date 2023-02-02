@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import AppInfo from 'AppInfo';
 import * as actions from 'Action';
 import './ImageSelection.css';
-import { inference } from 'mobileNetV2'
 
 type Props = {
   appInfo: AppInfo,
@@ -37,6 +36,7 @@ function ImageSelection(props: Props) {
   const dispatch = props.dispatch;
 
   const [ uploadImage, setUploadImage ] = useState<null | string>(null);
+  const [ imageBlob, setImageBlob ] = useState<null | any>(null);
 
   const uploadedImageRef = useRef<HTMLImageElement>(null);
   const uploaderRef = useRef<HTMLInputElement>(null);
@@ -46,22 +46,23 @@ function ImageSelection(props: Props) {
     const imageUrl = URL.createObjectURL(imageFile);
 
     setUploadImage(imageUrl);
+    setImageBlob(imageFile);
+
+/*
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+      const buffer = e.target.result;
+      setImageBlob(buffer);
+    };
+    reader.readAsBinaryString(imageFile);
+    */
   }
 
   useEffect(() => {
-    if (uploadImage) {
-      const f = async () => {
-        const tag = uploadedImageRef.current;
-        if (tag) {
-          const embedding = await inference(tag);
-          if (embedding) {
-            dispatch(actions.selectQueryWithImage(uploadImage, embedding));
-          }
-        }
-      };
-      setTimeout(() => { f(); }, 100);
+    if (imageBlob && uploadImage) {
+      dispatch(actions.selectQueryWithImage(imageBlob, uploadImage));
     }
-  }, [uploadImage, dispatch]);
+  }, [imageBlob, uploadImage, dispatch]);
 
   const query_images = select_queries(3);
   const query_image_tags = [];

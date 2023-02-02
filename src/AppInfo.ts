@@ -22,7 +22,7 @@ export default class AppInfo {
     selection: string | null;
 
     imageUrl: string | null;
-    embedding: number[] | null;
+    imageBlob: string | null;
 
     articleText: string | null;
 
@@ -30,7 +30,7 @@ export default class AppInfo {
         this.page = "Intro";
         this.selection = null;
         this.imageUrl = null;
-        this.embedding = null;
+        this.imageBlob = null;
         this.articleText = null;
     }
 }

@@ -69,10 +69,11 @@ function ImageResult(props: Props) {
           window.fetch("/api/query", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ "query": appInfo.selection }) })
           .then(setNeighborsCb);
         } else {
-          window.fetch("/api/query_embedding", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ "embedding": appInfo.embedding }) })
+          window.fetch("/api/query_image", { method: "POST", headers: { "Content-Type": "image/jpeg" }, body: appInfo.imageBlob })
           .then(setNeighborsCb);
         }
       } else {
+        if (appInfo.imageBlob){ alert(appInfo.imageBlob.length);}
         setTimeout(() => {
           const ids = [
             "0e979c911aa99339a9c125fe", "645fbea89b680842c6c11201", "31bd8b938d5a05b453d3cc2f", "14addffe96e27ece0da0f784", "222017804aa04eb9abb3874d",
@@ -89,7 +90,7 @@ function ImageResult(props: Props) {
         }, 200);
       }
     }
-  }, [neighbors, appInfo.selection, appInfo.embedding])
+  }, [neighbors, appInfo.selection, appInfo.imageBlob])
 
   const neighbor_images = [];
   if (neighbors != null) {
