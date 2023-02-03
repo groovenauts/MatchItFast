@@ -20,7 +20,7 @@ def index():
         html = f.read()
     return html
 
-def query_image(embedding)
+def query_image(embedding):
     index_id = os.environ.get("WIKIMEDIA_IMAGES_V2_DEPLOYED_INDEX_ID", "")
     ip = os.environ.get("WIKIMEDIA_IMAGES_V2_ENDPOINT_IP", "")
 
@@ -41,7 +41,7 @@ def query():
     return query_image(embedding)
 
 @app.route('/api/query_image', methods=["POST"])
-def query_image():
+def query_image_with_image():
     # image uploaded via request body
     buf = request.get_data()
     print("query_image: Content-Length: {}".format(request.headers.get("Content-Length")))
@@ -53,6 +53,21 @@ def query_image():
     embedding = vision.embedding.image_embedding(buf)
 
     return query_image(embedding)
+
+@app.route('/api/query_image_with_text', methods=["POST"])
+def query_image_with_text():
+    j = request.get_json();
+    if "text" not in j:
+        print("query_image_with_text(): 'text' field not found in request.")
+        return jsonify({ "neighbors": [], "latency": 0.0 })
+    if type(j["text"]) != str or len(j["text"]) == 0:
+        print("query_image_with_text(): 'text' field is not string or empty.")
+        return jsonify({ "neighbors": [], "latency": 0.0 })
+
+    embedding = vision.embedding.text_embedding(j["text"])
+
+    return query_image(embedding)
+
 
 @app.route('/api/query_document', methods=["POST"])
 def query_document():
