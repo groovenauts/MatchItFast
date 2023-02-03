@@ -38,7 +38,6 @@ function ImageSelection(props: Props) {
   const [ uploadImage, setUploadImage ] = useState<null | string>(null);
   const [ imageBlob, setImageBlob ] = useState<null | any>(null);
 
-  const uploadedImageRef = useRef<HTMLImageElement>(null);
   const uploaderRef = useRef<HTMLInputElement>(null);
 
   function processImage(ev: any) {
@@ -66,31 +65,21 @@ function ImageSelection(props: Props) {
 
   const query_images = select_queries(3);
   const query_image_tags = [];
-  if (uploadImage === null) {
-    for(let i = 0; i < 3; i++) {
-      const key = query_images[i];
-      query_image_tags.push(<img key={key} className="ImageSelection-image" src={"images/"+key+".jpg"} alt={key} onClick={() => dispatch(actions.selectQuery(key))} />);
-    }
-  }
-
-  const image_preview = [];
-  if (uploadImage) {
-    image_preview.push(<img key="ImagePreview" src={uploadImage} alt="preview" className="ImageSelection-preview" ref={uploadedImageRef} />);
+  for(let i = 0; i < 3; i++) {
+    const key = query_images[i];
+    query_image_tags.push(<img key={key} className="ImageSelection-image" src={"images/"+key+".jpg"} alt={key} onClick={() => dispatch(actions.selectQuery(key))} />);
   }
 
   const uploader = [];
-  if (uploadImage === null) {
-    uploader.push(<div key="upload-label" className="ImageSelection-title"> or <span onClick={() => uploaderRef.current!.click()} style={{textDecoration: "underline", cursor: "pointer"}} >upload an image</span></div>);
-    uploader.push(<div key="uploader" className="ImageSelection-uploader"><input type="file" accept="image/*" onChange={processImage} ref={uploaderRef} /></div>)
-  }
+  uploader.push(<div key="upload-label" className="ImageSelection-title"> or <span onClick={() => uploaderRef.current!.click()} style={{textDecoration: "underline", cursor: "pointer"}} >upload an image</span></div>);
+  uploader.push(<div key="uploader" className="ImageSelection-uploader"><input type="file" accept="image/*" onChange={processImage} ref={uploaderRef} /></div>)
 
   return (
     <div className="ImageSelection">
-      { uploadImage ? [] : [ <div key="title" className="ImageSelection-title">Choose one of the images below.</div> ]}
+      <div key="title" className="ImageSelection-title">Choose one of the images below.</div>
       <div key="images" className="ImageSelection-images">
         { query_image_tags }
       </div>
-      { image_preview }
       { uploader }
       <div key="back" className="reset-button" onClick={() => dispatch(actions.start())} >
         Back
