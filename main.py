@@ -35,7 +35,7 @@ def query():
 
     result, latency = cli.query_embedding(embedding, num_neighbors=25)
 
-    return jsonify({ "neighbors": [ { "id": i.id, "distance": i.distance } for i in result.neighbor ], "latency": latency })
+    return jsonify({ "neighbors": [ { "id": i.id, "distance": 1.0 - i.distance } for i in result.neighbor ], "latency": latency })
 
 @app.route('/api/query_image', methods=["POST"])
 def query_image():
@@ -56,7 +56,7 @@ def query_image():
 
     result, latency = cli.query_embedding(embedding, num_neighbors=25)
 
-    return jsonify({ "neighbors": [ { "id": i.id, "distance": i.distance } for i in result.neighbor ], "latency": latency })
+    return jsonify({ "neighbors": [ { "id": i.id, "distance": 1.0 - i.distance } for i in result.neighbor ], "latency": latency })
 
 @app.route('/api/query_document', methods=["POST"])
 def query_document():

@@ -1,17 +1,17 @@
 {
-  "displayName": "wikimedia images index (v2)",
-  "description": "index for Wikimedia Images with Vision API embedding(v0.1)",
+  "displayName": "Wikimedia images index (v2) Dot Product Distance",
+  "description": "Index for Wikimedia Images with Vision API embedding(v0.1), Dot Product Distance.",
   "metadata": {
     "contentsDeltaUri": "gs://match-it-fast-us-central1/wikimedia_images/index_v2",
     "config": {
       "dimensions": 1024,
-      "approximateNeighborsCount": 150,
-      "distanceMeasureType": "COSINE_DISTANCE",
+      "approximateNeighborsCount": 200,
+      "distanceMeasureType": "DOT_PRODUCT_DISTANCE",
       "shardSize": "SHARD_SIZE_MEDIUM",
       "algorithm_config": {
         "treeAhConfig": {
           "leafNodeEmbeddingCount": 1000,
-          "leafNodesToSearchPercent": 5
+          "leafNodesToSearchPercent": 10
         }
       }
     }

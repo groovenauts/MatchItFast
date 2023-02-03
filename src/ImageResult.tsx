@@ -52,7 +52,7 @@ function ImageResult(props: Props) {
 
     if (neighbors == null) {
       const searchParams = new URLSearchParams(window.location.search)
-      const threshold = parseFloat(searchParams.get("threshold") || "0.8");
+      const threshold = parseFloat(searchParams.get("threshold") || "0.2");
       if (process.env.NODE_ENV === "production") {
         const setNeighborsCb = (res: any) => {
           if (res.status !== 200) {
