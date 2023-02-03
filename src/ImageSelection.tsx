@@ -46,15 +46,6 @@ function ImageSelection(props: Props) {
 
     setUploadImage(imageUrl);
     setImageBlob(imageFile);
-
-/*
-    const reader = new FileReader();
-    reader.onload = (e: any) => {
-      const buffer = e.target.result;
-      setImageBlob(buffer);
-    };
-    reader.readAsBinaryString(imageFile);
-    */
   }
 
   useEffect(() => {
