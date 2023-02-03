@@ -20,16 +20,9 @@ def index():
         html = f.read()
     return html
 
-@app.route('/api/query', methods=["POST"])
-def query():
+def query_image(embedding)
     index_id = os.environ.get("WIKIMEDIA_IMAGES_V2_DEPLOYED_INDEX_ID", "")
     ip = os.environ.get("WIKIMEDIA_IMAGES_V2_ENDPOINT_IP", "")
-
-    j = request.get_json();
-    if "query" not in j:
-        return jsonify({ "neighbors": [], "latency": 0.0 })
-    with open("build/embeddings/{}.json".format(j["query"]), "r") as f:
-        embedding = json.loads(f.read())
 
     cli = matching_query.MatchingQueryClient(ip, index_id)
 
@@ -37,11 +30,18 @@ def query():
 
     return jsonify({ "neighbors": [ { "id": i.id, "distance": 1.0 - i.distance } for i in result.neighbor ], "latency": latency })
 
+@app.route('/api/query', methods=["POST"])
+def query():
+    j = request.get_json();
+    if "query" not in j:
+        return jsonify({ "neighbors": [], "latency": 0.0 })
+    with open("build/embeddings/{}.json".format(j["query"]), "r") as f:
+        embedding = json.loads(f.read())
+
+    return query_image(embedding)
+
 @app.route('/api/query_image', methods=["POST"])
 def query_image():
-    index_id = os.environ.get("WIKIMEDIA_IMAGES_V2_DEPLOYED_INDEX_ID", "")
-    ip = os.environ.get("WIKIMEDIA_IMAGES_V2_ENDPOINT_IP", "")
-
     # image uploaded via request body
     buf = request.get_data()
     print("query_image: Content-Length: {}".format(request.headers.get("Content-Length")))
@@ -52,11 +52,7 @@ def query_image():
 
     embedding = vision.embedding.image_embedding(buf)
 
-    cli = matching_query.MatchingQueryClient(ip, index_id)
-
-    result, latency = cli.query_embedding(embedding, num_neighbors=25)
-
-    return jsonify({ "neighbors": [ { "id": i.id, "distance": 1.0 - i.distance } for i in result.neighbor ], "latency": latency })
+    return query_image(embedding)
 
 @app.route('/api/query_document', methods=["POST"])
 def query_document():
