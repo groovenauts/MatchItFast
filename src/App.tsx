@@ -6,6 +6,7 @@ import Intro from 'Intro';
 import ModeSelection from 'ModeSelection';
 import ImageSelection from 'ImageSelection';
 import ImageResult from 'ImageResult';
+import ImageWithText from 'ImageWithText';
 import NewsForm from 'NewsForm';
 import NewsResult from 'NewsResult';
 
@@ -21,6 +22,8 @@ function App() {
     mainPage = <ImageSelection appInfo={appInfo} dispatch={dispatch} />;
   } else if (appInfo.page === "ImageResult") {
     mainPage = <ImageResult appInfo={appInfo} dispatch={dispatch} />;
+  } else if (appInfo.page === "ImageWithText") {
+    mainPage = <ImageWithText appInfo={appInfo} dispatch={dispatch} />;
   } else if (appInfo.page === "NewsForm") {
     mainPage = <NewsForm appInfo={appInfo} dispatch={dispatch} />;
   } else if (appInfo.page === "NewsResult") {

@@ -61,17 +61,15 @@ function ImageSelection(props: Props) {
     query_image_tags.push(<img key={key} className="ImageSelection-image" src={"images/"+key+".jpg"} alt={key} onClick={() => dispatch(actions.selectQuery(key))} />);
   }
 
-  const uploader = [];
-  uploader.push(<div key="upload-label" className="ImageSelection-title"> or <span onClick={() => uploaderRef.current!.click()} style={{textDecoration: "underline", cursor: "pointer"}} >upload an image</span></div>);
-  uploader.push(<div key="uploader" className="ImageSelection-uploader"><input type="file" accept="image/*" onChange={processImage} ref={uploaderRef} /></div>)
-
   return (
     <div className="ImageSelection">
       <div key="title" className="ImageSelection-title">Choose one of the images below.</div>
       <div key="images" className="ImageSelection-images">
         { query_image_tags }
       </div>
-      { uploader }
+      <div key="upload-label" className="ImageSelection-title"> or <span onClick={() => uploaderRef.current!.click()} style={{textDecoration: "underline", cursor: "pointer"}} >upload an image</span></div>
+      <div key="uploader" className="ImageSelection-uploader"><input type="file" accept="image/*" onChange={processImage} ref={uploaderRef} /></div>
+      <div key="text" className="ImageSelection-text">or <span onClick={() => dispatch(actions.queryImageWithText())} style={{textDecoration: "underline", cursor: "pointer"}} >search by text</span></div>
       <div key="back" className="reset-button" onClick={() => dispatch(actions.start())} >
         Back
       </div>

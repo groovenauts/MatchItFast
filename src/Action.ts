@@ -28,6 +28,7 @@ export const reset = () => new Action("reset", null);
 export const enterImage = () => new Action("image", null);
 export const selectQuery = (query: string) => new Action("select", query);
 export const selectQueryWithImage = (imageBlob: string, imageUrl: (string|null)) => new Action("selectImage", { imageBlob: imageBlob, imageUrl: imageUrl });
+export const queryImageWithText = () => new Action("queryImageWithText", null)
 export const enterNews = () => new Action("news", null);
 export const queryArticle = (text: string) => new Action("queryWithArticle", { text: text });
 

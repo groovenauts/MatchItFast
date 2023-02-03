@@ -13,6 +13,8 @@ function appReducer(appInfo: any, action: Action) {
             return { ...appInfo, ...{ page: "ImageResult", selection: action.data, imageBlob: null, imageUrl: null } };
         case "selectImage":
             return { ...appInfo, ...{ page: "ImageResult", selection: null, imageBlob: action.data.imageBlob, imageUrl: action.data.imageUrl } };
+        case "queryImageWithText":
+            return { ...appInfo, ...{ page: "ImageWithText", selection: null } };
         case "news":
             return { ...appInfo, ...{ page: "NewsForm", articleText: null } };
         case "queryWithArticle":
