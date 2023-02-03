@@ -65,7 +65,7 @@ function ImageWithText(props: Props) {
     } else {
       const tid = window.setTimeout(() => {
         const searchParams = new URLSearchParams(window.location.search)
-        const threshold = parseFloat(searchParams.get("threshold") || "0.2");
+        const threshold = parseFloat(searchParams.get("threshold") || "1.0");
         if (process.env.NODE_ENV === "production") {
           const setNeighborsCb = (res: any) => {
             if (res.status !== 200) {
