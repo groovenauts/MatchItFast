@@ -77,7 +77,6 @@ function ImageResult(props: Props) {
           .then(setNeighborsCb);
         }
       } else {
-        if (appInfo.imageBlob){ alert(appInfo.imageBlob.length);}
         setTimeout(() => {
           const ids = [
             "0e979c911aa99339a9c125fe", "645fbea89b680842c6c11201", "31bd8b938d5a05b453d3cc2f", "14addffe96e27ece0da0f784", "222017804aa04eb9abb3874d",
