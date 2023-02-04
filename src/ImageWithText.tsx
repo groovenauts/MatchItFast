@@ -36,21 +36,18 @@ function ImageWithText(props: Props) {
 
   useEffect(() => {
     function generate_floating_animation(i: number) {
-      while (true) {
-        const top = getRandInt(15, 80);
-        const left = getRandInt(1, 80);
-        const delay = getRandInt(-20, 0);
-        const direction = (Math.random() < 0.5) ? "normal" : "reverse";
-        if (!((30<=top&&top<60)&&(20<=left&&left<60))) {
-          return {
-            top: top + "%",
-            left: left + "%",
-            animationDelay: delay + "s",
-            animationDirection: direction,
-            zIndex: -i,
-          };
-        }
-      }
+      const top = getRandInt(10, 70);
+      const center = 50 + 1.8 * i * (i % 2 === 0 ? 1 : -1) + getRandInt(-3, 3);
+      const delay = getRandInt(-20, 0);
+      const direction = (Math.random() < 0.5) ? "normal" : "reverse";
+      // left = center - half_of_ImageWithText-neighbor-image:hover_width(=18vmin)
+      return {
+        top: top + "vh",
+        left: "calc(" + center + "vw - 9vmin)",
+        animationDelay: delay + "s",
+        animationDirection: direction,
+        zIndex: -i,
+      };
     }
 
     if (timerId) {

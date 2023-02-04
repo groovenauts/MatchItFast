@@ -40,11 +40,12 @@
 
 .ImageWithText-textarea {
   position: absolute;
-  bottom: 11vmin;
-  left: 35%;
+  bottom: 6vh;
+  left: 25vw;
   font-size: 2vmin;
-  width: 30%;
-  height: 10%;
+  width: 50vw;
+  height: 6vh;
+  border-radius: 9px;
   z-index: 1;
 }
 
