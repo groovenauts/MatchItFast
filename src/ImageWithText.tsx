@@ -12,7 +12,6 @@ type Props = {
 const datasetUrl = "https://console.cloud.google.com/bigquery?p=gn-match-it-fast&d=match_it_fast&t=wikimedia_image_embeddings&page=table"
 
 function ImageWithText(props: Props) {
-  const appInfo = props.appInfo;
   const dispatch = props.dispatch;
 
   type Neighbor = {
@@ -57,7 +56,7 @@ function ImageWithText(props: Props) {
     if (timerId) {
       clearTimeout(timerId);
     }
-    if (queryText.trim() == "") {
+    if (queryText.trim() === "") {
       setTimerId(null);
       if (neighbors != null) {
         setNeighbors(null);
@@ -105,6 +104,8 @@ function ImageWithText(props: Props) {
       }, 1000);
       setTimerId(tid)
     }
+    // eliminate timerId and neighbors to stop recursive timer settings
+    // eslint-disable-next-line
   }, [queryText])
 
   const neighbor_images = [];
