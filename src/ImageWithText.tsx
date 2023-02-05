@@ -24,7 +24,6 @@ function ImageWithText(props: Props) {
   const [ neighbors, setNeighbors ] = useState<null | Neighbor[]>(null);
   const [ selectedNeighbor, setSelectedNeighbor ] = useState<null | Neighbor>(null);
   const [ queryText, setQueryText ] = useState<string>("");
-  const [ timerId, setTimerId ] = useState<number|null>(null);
 
   const textareaRef = useRef<HTMLTextAreaElement|null>(null);
 
@@ -50,11 +49,7 @@ function ImageWithText(props: Props) {
       };
     }
 
-    if (timerId) {
-      clearTimeout(timerId);
-    }
     if (queryText.trim() === "") {
-      setTimerId(null);
       if (neighbors != null) {
         setNeighbors(null);
       }
@@ -99,9 +94,9 @@ function ImageWithText(props: Props) {
           }, 200);
         }
       }, 1000);
-      setTimerId(tid)
+      return () => { window.clearTimeout(tid) }
     }
-    // eliminate timerId and neighbors to stop recursive timer settings
+    // eliminate neighbors to stop recursive timer settings
     // eslint-disable-next-line
   }, [queryText])
 
