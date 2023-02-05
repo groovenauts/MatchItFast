@@ -128,7 +128,7 @@ function ImageWithText(props: Props) {
   return (
     <div className="ImageWithText">
       <div key="title" className="ImageWithText-title">
-        { neighbors ? ["Top-25 matches from ", <a href={datasetUrl} style={{"color": "inherit"}} target="_blank" rel="noreferrer" >2 million images</a>, "."] : "Searching from 2 million images..." }
+        { neighbors ? ["Top-25 matches from ", <a key="title" href={datasetUrl} style={{"color": "inherit"}} target="_blank" rel="noreferrer" >2 million images</a>, "."] : "Searching from 2 million images..." }
       </div>
       <div key="query">
         <textarea className="ImageWithText-textarea" onChange={() => setQueryText(textareaRef.current!.value)} ref={textareaRef} />
