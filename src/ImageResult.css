@@ -72,8 +72,8 @@
 .reset-button {
   font-size: 3vmin;
   position: absolute;
-  right: 5vmin;
-  bottom: 6vmin;
+  right: 2vw;
+  bottom: 6vh;
   width: 10vmin;
   height: 10vmin;
   line-height: 10vmin;

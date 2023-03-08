@@ -41,10 +41,11 @@
 .ImageWithText-textarea {
   position: absolute;
   bottom: 6vh;
-  left: 25vw;
-  font-size: 2vmin;
-  width: 50vw;
-  height: 6vh;
+  left: 8vw;
+  font-size: 4vmin;
+  text-align: center;
+  width: 80vw;
+  height: 16vh;
   border-radius: 9px;
   z-index: 1;
 }
@@ -83,8 +84,8 @@
 .reset-button {
   font-size: 3vmin;
   position: absolute;
-  right: 5vmin;
-  bottom: 6vmin;
+  right: 2vw;
+  bottom: 6vh;
   width: 10vmin;
   height: 10vmin;
   line-height: 10vmin;
