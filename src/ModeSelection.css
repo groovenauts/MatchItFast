@@ -30,8 +30,8 @@
 }
 
 .ModeSelection-selector img {
-  width: 30vmin;
-  height: 30vmin;
+  width: 28vmin;
+  height: 28vmin;
   border-radius: 50%;
   border: solid;
   border-color: rgb(145, 180, 245);
@@ -43,8 +43,8 @@
 }
 
 .ModeSelection-selector img:hover {
-  width: 34vmin;
-  height: 34vmin;
+  width: 32vmin;
+  height: 32vmin;
   margin: 0vmin;
 }
 

@@ -69,7 +69,6 @@ function ImageSelection(props: Props) {
       </div>
       <div key="upload-label" className="ImageSelection-title"> or <span onClick={() => uploaderRef.current!.click()} style={{textDecoration: "underline", cursor: "pointer"}} >upload an image</span></div>
       <div key="uploader" className="ImageSelection-uploader"><input type="file" accept="image/*" onChange={processImage} ref={uploaderRef} /></div>
-      <div key="text" className="ImageSelection-text">or <span onClick={() => dispatch(actions.queryImageWithText())} style={{textDecoration: "underline", cursor: "pointer"}} >search by text</span></div>
       <div key="back" className="reset-button" onClick={() => dispatch(actions.start())} >
         Back
       </div>

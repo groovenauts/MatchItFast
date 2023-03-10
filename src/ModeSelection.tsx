@@ -20,6 +20,10 @@ function ModeSelection(props: Props) {
           <div>Image Similarity Search</div>
         </div>
         <div className="ModeSelection-selector">
+          <img src="images/image_by_text.jpg" alt="Img search by text" onClick={() => dispatch(actions.queryImageWithText())} />
+          <div>Image Search by Text</div>
+        </div>
+        <div className="ModeSelection-selector">
           <img src="images/text.jpg" alt="News similarity search mode" onClick={() => dispatch(actions.enterNews())} />
           <div>News Similarity Search</div>
         </div>

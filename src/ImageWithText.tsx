@@ -131,7 +131,7 @@ function ImageWithText(props: Props) {
       <div key="neighbors" className="ImageWithText-neighbors">
         {neighbor_images}
       </div>
-      <div key="back" className="reset-button" onClick={() => dispatch(actions.enterImage())} >
+      <div key="back" className="reset-button" onClick={() => dispatch(actions.start())} >
         Back
       </div>
       { highlight }
