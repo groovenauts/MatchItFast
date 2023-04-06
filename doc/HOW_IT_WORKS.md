@@ -20,7 +20,7 @@ When you select your own image on your browser, MatchIt Fast app process it with
 The image feature vector is derived by [MobileNet V2](https://tfhub.dev/google/imagenet/mobilenet_v2_100_224/feature_vector/5) model.
 The image you selected doesn't upload to serverside. The browser upload only the embedding (feature vector) of the image to App Engine.
 
-The nearest neighbors search request is issued to the Matching Engine endpoints via VPC Network.
+The nearest neighbors search request is issued to the Matching Engine endpoints.
 The latency shown on the result page shows the turn around time of this query process between App Engine and Vertex Matching Engine.
 
 The neighbor images are directly downloaded to browser from CDN (public Google Cloud Storage bucket).

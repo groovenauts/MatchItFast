@@ -20,43 +20,30 @@ See ![How it works](doc/HOW_IT_WORKS.md)
 
 You need to have a Google Cloud Platform project with enabled billing account.
 
-### VPC Network
+### Configuring Matching Engine
 
-Currently Vertex Matcing Engine index endpoints can be access via only Private Service Access.
-You need to create a VPC Network to be configured several VPC service components.
-See [the documentation of VPC networks](https://cloud.google.com/vpc/docs/using-vpc) for how to create a VPC network in your Google Cloud Platform Project.
+To create Indexes and deploy them to the Index Endpoints, see [the documentation](https://cloud.google.com/vertex-ai/docs/matching-engine/create-manage-index?hl=en).
 
-### Configure Matching Engine
+MatchIt Fast app requires the two indexes of images and articles deployed to index endpoints.
 
-To create Indexes and deploy them to the Index Endpoints, see [the documentation](https://cloud.google.com/vertex-ai/docs/matching-engine/using-matching-engine).
-
-MatchIt Fast app requires the two indexes of images and articles deployed to index endpoints and accessible via [Private Service Access](https://cloud.google.com/vpc/docs/private-services-access).
-The Private Service Access should be configured on the VPC network you created above.
-
-The example command lines to create Matching Engine index for the MatchIt Fast demonstration are shown below.
+The example command lines to create Matching Engine indexes for the MatchIt Fast demonstration are shown below.
 
 ```
-gcloud --project=gn-match-it-fast beta ai indexes create \
+gcloud --project=MY-PROJECT-ID ai indexes create \
        --display-name=gdelt-gsg \
        --description="GDELT GSG Demo" \
        --metadata-file=metadata/gdelt_gsg_index_metadata.json \
        --region=us-central1
-gcloud --project=gn-match-it-fast beta ai indexes create \
+gcloud --project=MY-PROJECT-ID ai indexes create \
        --display-name=wikimedia-images \
        --description="Wikimedia Image Demo" \
        --metadata-file=metadata/wikimedia_images_index_metadata.json \
        --region=us-central1
 ```
 
-### Serverless VPC Access
-
-To access Matching Engine Index Endpoints via Private Service Access from App Engine, you need to create [Serverless VPC Access](https://cloud.google.com/vpc/docs/configure-serverless-vpc-access).
-The connector of Serverless VPC Access should be created on the VPC network you created above.
-
 ### GCE instance with container
 
 To retrieve document embedding using the [Universal Sentence Encoder](https://tfhub.dev/google/universal-sentence-encoder/4), you need to deploy the container on the GCE instance.
-Be careful to create the instance in the VPC network you created for the demo app.
 
 The container image could be build with Cloud Build. The configuration for Cloud Built trigger is [utilities/containers/gsg-encoder/cloudbuild.yaml](utilities/containers/gsg-encoder/cloudbuild.yaml).
 
@@ -64,7 +51,6 @@ The [GCE instance with container](https://cloud.google.com/compute/docs/containe
 
 ```
 gcloud --project=MY-PROJECT-ID compute instances create-with-container INSTANCE-NAME \
-    --subnet=MY-VPC-NAME \
     --zone=us-central1-a --machine-type=e2-medium \
     --image-family=cos-dev --image-project=cos-cloud --boot-disk-size=50GB \
     --container-image=gcr.io/MY-PROJECT-ID/universal-sentence-encoder-app:latest
@@ -87,10 +73,6 @@ Change the following setting values in app.yaml.
 | `GDELT_GSG_DEPLOYED_INDEX_ID` | The deployed index ID for news search |
 | `GDELT_GSG_ENDPOINT_IP` | The IP address of deployed index for news search |
 | `GDELT_GSG_APP_ENDPOINT` | 'http://{IP-ADDR}' IP-ADDR should be replaced with the internal IP address of the GCE instance you created. |
-
-#### `vpc_access_connector`
-
-Specify Serverless VPC Access connector name.
 
 ### 2. Deploy
 
