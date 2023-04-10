@@ -1,7 +1,4 @@
 Flask==2.0.1
-grpcio==1.39.0
-grpcio-gcp
-googleapis-common-protos
-protobuf==3.17.3
+google-cloud-aiplatform==1.23.0
 google-cloud-storage==1.42.0
 py-ogp-parser==0.2.1

@@ -22,13 +22,14 @@ def index():
 
 def query_image(embedding):
     index_id = os.environ.get("WIKIMEDIA_IMAGES_V2_DEPLOYED_INDEX_ID", "")
-    ip = os.environ.get("WIKIMEDIA_IMAGES_V2_ENDPOINT_IP", "")
+    domain = os.environ.get("WIKIMEDIA_IMAGES_V2_ENDPOINT_DOMAIN", "")
+    index_endpoint = os.environ.get("WIKIMEDIA_IMAGES_V2_ENDPOINT", "")
 
-    cli = matching_query.MatchingQueryClient(ip, index_id)
+    cli = matching_query.MatchingQueryClient(domain, index_endpoint, index_id)
 
     result, latency = cli.query_embedding(embedding, num_neighbors=25)
 
-    return jsonify({ "neighbors": [ { "id": i.id, "distance": 1.0 - i.distance } for i in result.neighbor ], "latency": latency })
+    return jsonify({ "neighbors": [ { "id": i.datapoint.datapoint_id, "distance": 1.0 - i.distance } for i in result.neighbors ], "latency": latency })
 
 @app.route('/api/query', methods=["POST"])
 def query():
@@ -72,7 +73,8 @@ def query_image_with_text():
 @app.route('/api/query_document', methods=["POST"])
 def query_document():
     index_id = os.environ.get("GDELT_GSG_DEPLOYED_INDEX_ID", "")
-    ip = os.environ.get("GDELT_GSG_ENDPOINT_IP", "")
+    domain = os.environ.get("GDELT_GSG_ENDPOINT_DOMAIN", "")
+    index_endpoint = os.environ.get("GDELT_GSG_ENDPOINT", "")
     endpoint = os.environ.get("GDELT_GSG_APP_ENDPOINT", "http://localhost/")
 
     j = request.get_json();
@@ -94,9 +96,10 @@ def query_document():
 
     embedding = body["embedding"]
 
-    cli = matching_query.MatchingQueryClient(ip, index_id)
+    cli = matching_query.MatchingQueryClient(domain, index_endpoint, index_id)
 
     result, latency = cli.query_embedding(embedding, num_neighbors=10)
+    print(result)
 
     print("Embedding Latency = {} sec, Query Latency = {} sec".format(embedding_latency, latency))
 
@@ -113,7 +116,8 @@ def query_document():
                 "url": obj["url"],
                 }
 
-    return jsonify({ "neighbors": [ { "id": i.id, "distance": i.distance, **doc_information(i.id) } for i in result.neighbor ], "latency": latency })
+    return jsonify({ "neighbors": [ { "id": i.datapoint.datapoint_id, "distance": i.distance, **doc_information(i.datapoint.datapoint_id) } for i in result.neighbors ], "latency": latency })
+
 
 @app.route('/api/ogp_image', methods=["POST"])
 def ogp_image():
