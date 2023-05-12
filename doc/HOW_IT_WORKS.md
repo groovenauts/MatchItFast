@@ -16,12 +16,17 @@ The figure below shows the data flow when you upload custom image to search simi
 
 ![Image Similarity Search](images/ImageSimilaritySearch.png)
 
-When you select your own image on your browser, MatchIt Fast app process it with [Tensorflow.js](https://www.tensorflow.org/js/) models derived fromo [TFHub](https://tfhub.dev).
-The image feature vector is derived by [MobileNet V2](https://tfhub.dev/google/imagenet/mobilenet_v2_100_224/feature_vector/5) model.
-The image you selected doesn't upload to serverside. The browser upload only the embedding (feature vector) of the image to App Engine.
+When you select your own image on your browser, MatchIt Fast app process it with [Vertex AI Embeddings API for Image](https://cloud.google.com/vertex-ai/docs/generative-ai/embeddings/get-image-embeddings).
 
 The nearest neighbors search request is issued to the Matching Engine endpoints.
-The latency shown on the result page shows the turn around time of this query process between App Engine and Vertex Matching Engine.
+
+The neighbor images are directly downloaded to browser from CDN (public Google Cloud Storage bucket).
+
+!Image Search by Text
+
+When you input query text, MatchIt Fast app process it with [Vertex AI Embeddings API for Text](https://cloud.google.com/vertex-ai/docs/generative-ai/embeddings/get-text-embeddings).
+
+The nearest neighbors search request is issued to the Matching Engine endpoints.
 
 The neighbor images are directly downloaded to browser from CDN (public Google Cloud Storage bucket).
 
