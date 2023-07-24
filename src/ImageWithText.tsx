@@ -56,7 +56,6 @@ function ImageWithText(props: Props) {
     } else {
       const tid = window.setTimeout(() => {
         const searchParams = new URLSearchParams(window.location.search)
-        const threshold = parseFloat(searchParams.get("threshold") || "1.0");
         if (process.env.NODE_ENV === "production") {
           const setNeighborsCb = (res: any) => {
             if (res.status !== 200) {
@@ -65,9 +64,7 @@ function ImageWithText(props: Props) {
               res.json().then((result: any) => {
                 const ns = [];
                 for (let i = 0; i < result["neighbors"].length; i++) {
-                  if (result["neighbors"][i]["distance"] < threshold) {
-                    ns.push({ rank: i+1, style: generate_floating_animation(i), ...result["neighbors"][i]});
-                  }
+                  ns.push({ rank: i+1, style: generate_floating_animation(i), ...result["neighbors"][i]});
                 }
                 setNeighbors(ns);
               });
@@ -86,9 +83,7 @@ function ImageWithText(props: Props) {
             ];
             const ns = [];
             for (let i = 0; i < ids.length; i++) {
-              if ((i+1)*0.02 < threshold) {
-                ns.push({ rank: i+1, id: ids[i], style: generate_floating_animation(i), distance: (i+1)*0.02});
-              }
+              ns.push({ rank: i+1, id: ids[i], style: generate_floating_animation(i), distance: (i+1)*0.02});
             }
             setNeighbors(ns);
           }, 200);

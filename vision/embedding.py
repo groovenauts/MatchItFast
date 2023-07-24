@@ -3,59 +3,56 @@
 import os
 import json
 import uuid
+import base64
 from typing import List
+import requests
 
-from google.cloud import storage
 import urllib.request
 
-def request_embedding(payload, image=True) -> List[float]:
-    api_key = os.getenv("API_KEY", "")
-    endpoint = "https://us-vision.googleapis.com/v1/images:annotate?key={}".format(api_key)
-    req = urllib.request.Request(endpoint, data=json.dumps(payload).encode("utf-8"), headers={"Content-Type": "application/json"}, method="POST")
+
+
+
+def get_access_token():
+    url = 'http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/token'
+
+    # Request an access token from the metadata server.
+    r = requests.get(url, headers={'Metadata-Flavor': 'Google'})
+    r.raise_for_status()
+
+    # Extract the access token from the response.
+    access_token = r.json()['access_token']
+
+    return access_token
+
+def request_embedding(payload) -> List[float]:
+    project_id = os.getenv("PROJECT_ID", "")
+    access_token = get_access_token()
+    endpoint = "https://us-central1-aiplatform.googleapis.com/v1/projects/{}/locations/us-central1/publishers/google/models/multimodalembedding@001:predict".format(project_id)
+    headers = {
+            "Authorization": "Bearer {}".format(access_token),
+            "Content-Type": "application/json; charset=utf-8",
+            }
+    req = urllib.request.Request(endpoint, data=json.dumps(payload).encode("utf-8"), headers=headers, method="POST")
     with urllib.request.urlopen(req) as res:
         body = json.loads(res.read())
 
     try:
-        return body["responses"][0]["imageEmbeddingVector"]
+        return body["predictions"][0]
     except:
         raise ValueError("invalid response: {}".format(json.dumps(body)))
 
 def image_embedding(image :bytes) -> List[float]:
-    storage_client = storage.Client()
-    bucket = storage_client.bucket("gn-match-it-fast-public-tmp")
-    tmp_file_id = uuid.uuid4()
-    blob = bucket.blob("images/{}.jpg".format(tmp_file_id))
-    blob.upload_from_string(image, content_type="image/jpeg")
     req = {
-        "requests": [{
-            "image": {
-                "source": {
-                    "imageUri": "https://storage.googleapis.com/gn-match-it-fast-public-tmp/images/{}.jpg".format(tmp_file_id)
-                }
-            },
-            "features": [{
-                "type": "IMAGE_EMBEDDING"
-            }]
-        }]
+        "instances": [{
+            "image": { "bytesBase64Encoded": base64.b64encode(image).decode("utf-8") },
+        } ]
     }
-    return request_embedding(req)["imageEmbeddingVector"]
+    return request_embedding(req)["imageEmbedding"]
 
 def text_embedding(text :str) -> List[float]:
     req = {
-        "requests": [{
-            "image": {
-                "source": {
-                    "imageUri": "https://storage.googleapis.com/gn-match-it-fast-assets/images/a/a4/a4f/a4f26fd823dcdcb9feb0de61.jpg"
-                }
-            },
-            "features": [{
-                "type": "IMAGE_EMBEDDING"
-            }],
-            "imageContext": {
-                "imageEmbeddingParams": {
-                    "contextualTexts": [text]
-                }
-            }
-        }]
+        "instances": [{
+            "text": text,
+        } ]
     }
-    return request_embedding(req)["contextualTextEmbeddingVectors"][0]
+    return request_embedding(req)["textEmbedding"]

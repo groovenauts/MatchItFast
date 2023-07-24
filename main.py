@@ -21,9 +21,9 @@ def index():
     return html
 
 def query_image(embedding):
-    index_id = os.environ.get("WIKIMEDIA_IMAGES_V2_DEPLOYED_INDEX_ID", "")
-    domain = os.environ.get("WIKIMEDIA_IMAGES_V2_ENDPOINT_DOMAIN", "")
-    index_endpoint = os.environ.get("WIKIMEDIA_IMAGES_V2_ENDPOINT", "")
+    index_id = os.environ.get("WIKIMEDIA_IMAGES_DEPLOYED_INDEX_ID", "")
+    domain = os.environ.get("WIKIMEDIA_IMAGES_ENDPOINT_DOMAIN", "")
+    index_endpoint = os.environ.get("WIKIMEDIA_IMAGES_ENDPOINT", "")
 
     cli = matching_query.MatchingQueryClient(domain, index_endpoint, index_id)
 
