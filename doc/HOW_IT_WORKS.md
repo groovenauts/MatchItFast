@@ -16,7 +16,7 @@ The figure below shows the data flow when you upload custom image to search simi
 
 ![Image Similarity Search](images/ImageSimilaritySearch.png)
 
-When you select your own image on your browser, MatchIt Fast app process it with [Vertex AI Embeddings API for Image](https://cloud.google.com/vertex-ai/docs/generative-ai/embeddings/get-image-embeddings).
+When you select your own image on your browser, MatchIt Fast app process it with [Vertex AI Multimodal Embeddings API](https://cloud.google.com/vertex-ai/docs/generative-ai/embeddings/get-image-embeddings).
 
 The nearest neighbors search request is issued to the Matching Engine endpoints.
 
@@ -24,7 +24,7 @@ The neighbor images are directly downloaded to browser from CDN (public Google C
 
 !Image Search by Text
 
-When you input query text, MatchIt Fast app process it with [Vertex AI Embeddings API for Text](https://cloud.google.com/vertex-ai/docs/generative-ai/embeddings/get-text-embeddings).
+When you input query text, MatchIt Fast app process it with [Vertex AI Multimodal Embeddings API](https://cloud.google.com/vertex-ai/docs/generative-ai/embeddings/get-image-embeddings).
 
 The nearest neighbors search request is issued to the Matching Engine endpoints.
 
